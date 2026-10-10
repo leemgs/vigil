@@ -1,0 +1,129 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% VIGIL --- *ACL (ACL Rolling Review) anonymous submission (main driver)
+%
+% Change "review" to "final" for the camera-ready, or to "preprint"
+% for a non-anonymous version with page numbers.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[11pt]{article}
+
+% ACL style (loads natbib, caption, hyperref, and line numbers in review mode).
+% Build mode: review (default, anonymous) | preprint | final.
+% Set by gen_pdf.sh; do not edit here.
+\providecommand{\aclmode}{review}
+\edef\loadacl{\noexpand\usepackage[\aclmode]{acl}}\loadacl
+
+% Standard fonts / encoding recommended by the ACL template.
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+\usepackage{graphicx}
+
+% ---------------------------------------------------------------
+% Math, symbols, and tables
+% ---------------------------------------------------------------
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{makecell}
+
+% Algorithms
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+% Lists, inline symbols, and code/quote boxes
+\usepackage{enumitem}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+
+% Code/quote box for verbatim-like illustrative blocks
+% (History, Progress Notes, prompt schematic)
+\newtcolorbox{mycodebox}{
+    enhanced,
+    colback=gray!5,
+    colframe=gray!40,
+    arc=3mm,
+    boxrule=0.8pt,
+    left=2pt, right=2pt,
+    top=4pt, bottom=4pt,
+    width=\columnwidth,
+    boxsep=0pt,
+    halign=left
+}
+
+% TikZ for the (vectorized) architecture figure
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,fit,backgrounds,calc}
+
+% Anonymized artifact names for the review version. For preprint/final
+% builds, camera_ready.tex (not committed; see camera_ready.tex.example)
+% may redefine them and supply the author block.
+\newcommand{\trackername}{\texttt{vigil-tracker}}
+\newcommand{\schemafile}{\texttt{vigil-sensing.csv}}
+
+% Theorem-like environments
+\newtheorem{proposition}{Proposition}
+
+% ---------------------------------------------------------------
+% Title and (anonymous) author block.
+% In [review] mode the ACL style automatically prints
+% "Anonymous ACL submission" and hides the author block below.
+% ---------------------------------------------------------------
+\input{./001_title.tex}
+\def\reviewmode{review}\ifx\aclmode\reviewmode\else\input{./camera_ready.tex}\fi
+
+\begin{document}
+
+\maketitle
+
+% Force-include the case-study references that are discussed by name in
+% the body but not formally \cite{}d inline.
+\nocite{getty_stability_2023,
+        nyt_openai_2023,
+        kadrey_meta_2023}
+
+\input{./010_abstract.tex}
+
+\input{./020_introduction.tex}
+
+\input{./040_background.tex}
+
+\input{./045_motivation.tex}
+
+\input{./050_design_implement.tex}
+
+\input{./060_case_study.tex}
+
+\input{./065_evaluation.tex}
+
+\input{./070_related_work.tex}
+
+\input{./075_discussion.tex}
+
+\input{./085_conclusion.tex}
+
+% ---------------------------------------------------------------
+% ACL-required "Limitations" section (unnumbered) and the optional
+% "Ethical Considerations", both placed after the Conclusion and before the
+% References. Neither counts against the page limit.
+% ---------------------------------------------------------------
+\input{./086_limitations.tex}
+
+\input{./087_ethics.tex}
+
+% References (acl.sty already sets \bibliographystyle{acl_natbib}).
+\bibliography{reference-data}
+
+% Technical appendix (appears after the References, per ACL formatting).
+\appendix
+\input{./088_appendix.tex}
+
+\end{document}
