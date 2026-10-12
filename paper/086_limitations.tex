@@ -1,0 +1,26 @@
+\section*{Limitations}
+\label{sec:limitations}
+
+\textbf{What this paper does and does not claim.}
+Our primary claim is mechanistic: an \emph{extracted} treatment layer, validated against gold spans and a commercial citator, can be applied as a hard validity gate at retrieval time, and doing so changes PLRE outcomes and stale-citation rates relative to the same pipeline without the gate (Table~\ref{tab:temporal_ablation}). We report point estimates and do not claim statistical significance for any comparison. The contribution is the validated gate construction and its downstream effect under matched retrieval, not a leaderboard win under every possible baseline.
+
+\textbf{Statistical uncertainty.}
+Per-instance prediction vectors for paired bootstrap on the main tables were not retained. We therefore present point estimates only and release evaluation scripts and seeds so that independent re-runs can attach CIs. Aggregate mean$\pm$std over five seeds (Appendix) are run-level summaries, not a substitute for case-paired tests. On triage ($n{=}82$), the VIGIL--B5 gap (0.79 vs.\ 0.75) is modest and is not offered as a significant improvement. On PLRE ($n{=}372$ pairs), the $+$0.06 F1 and 12.7\%$\rightarrow$4.1\% stale-cite reductions are the operational magnitudes of interest; without CIs they should be read as directional under the frozen protocol.
+
+\textbf{Baselines not evaluated on PLRE.}
+B5 (iteration-matched self-refinement), token-matched refinement, pure document-date filters, and learned temporal re-rankers were not run on PLRE. A date filter cannot encode supersession by \emph{later} opinions (the end point $e_v$ is not a property of document $v$), so it is not a substitute for treatment extraction; we leave a head-to-head re-ranker comparison to follow-on work. B5 on severity labels is a triage control only.
+
+\textbf{Distractor composition.}
+Stale-authority distractors are 19.7\% of PLRE pairs. We do not report a non-distractor-only F1. Table~\ref{tab:temporal_ablation} already includes the hard gate vs.\ no-gate ablation on the full held-out set; isolating the non-distractor subset would further test ranking among still-open authorities but is not required to establish that the gate removes closed support.
+
+\textbf{Split structure.}
+Case and PLRE splits are stratified by year and type (or archetype), not by dispute identity. Related dockets of one dispute can cross the train/test boundary. Primary PLRE metrics use held-out pairs only, with few-shot exemplars and thresholds taken from train/validation, but a dispute-blocked re-split remains desirable.
+
+\textbf{B1, extractors, transfer, and raters.}
+B1 uses additive scores only; retained pre-labels used composite bonuses, so B1 is not scored against its own labels. Negative-treatment recall is 0.77 on gold spans (citator missed-action rate 20.4\%). Protocol~P1 is incomplete. Annotators and raters were institutional staff. Conformal coverage weakens under temporal shift. The dataset is U.S.-federal and skewed toward large defendants (top three: 41.3\% of cases).
+
+\textbf{Reproducibility.}
+Primary runs used OpenAI API snapshot \texttt{gpt-4o-2024-08-06} (June 2025). Azure OpenAI retired that version string on 2026-02-27; OpenAI API access is not guaranteed. Bit-identical re-runs require that snapshot.
+
+\textbf{Future work.}
+Larger adjudication, paired bootstrap CIs, non-distractor and dispute-blocked audits, B5/token-matched and temporal re-ranker controls on PLRE, and broader coverage.

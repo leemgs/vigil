@@ -1,0 +1,129 @@
+
+\section{Experiments}
+\label{sec:evaluation}
+
+We evaluate VIGIL along five research questions:
+\begin{itemize}[leftmargin=1.2em,itemsep=1pt,topsep=2pt]
+  \item \textbf{RQ1}: Does VIGIL improve severity-label agreement over strong baselines?
+  \item \textbf{RQ2}: Do blinded specialists rate VIGIL reports more highly, especially on evidence sufficiency?
+  \item \textbf{RQ3}: How much do the temporal gate and agentic loop each contribute?
+  \item \textbf{RQ4}: Does validity gating improve Product--Litigation Risk Entailment?
+  \item \textbf{RQ5}: Does the calibrated stopping rule control evidence-omission risk under temporal shift?
+\end{itemize}
+
+\subsection{Experimental Setup}
+
+\textbf{Dataset split and label provenance.} VIGIL-Dataset is partitioned into stratified train/validation/test splits by year and litigation type (not by dispute identity; related dockets of the same dispute may therefore appear in more than one split---a residual leakage risk we flag in Limitations). Because a substantial share of labels originate from an automated pre-labeler and only a subset are human-adjudicated, primary claims are computed exclusively on the human-adjudicated test split ($n{=}82$ cases); retained-label results are reported solely for scale. Conformal calibration draws on human-adjudicated cases from the training and validation pools, kept disjoint from the test cases. This design keeps the rule-based pre-labeler out of the evidence for our primary claims. For VIGIL and baselines B2--B5 the training split is used only to select few-shot examples and tune thresholds; no LLM is fine-tuned.
+
+\textbf{Baselines.} We compare VIGIL against five risk-classification baselines: \textbf{B1 Additive-only Rule} (ingestion matrix without composite bonuses; thresholds tuned on validation); \textbf{B2 Single-Pass LLM}; \textbf{B3 RAG-only}; \textbf{B4 Single-Agent} (VIGIL without the goal-conditioned loop); and \textbf{B5 Iteration-Matched Self-Refinement} (a Reflexion-style baseline~\citep{shinn2023reflexion} given VIGIL's mean budget of 2.4 iterations, matched on iterations rather than tokens). B2--B5 share the same GPT-4o backbone and decoding settings as VIGIL. For PLRE we further include non-VIGIL baselines that isolate suspected confounds: product--theory cosine, LegalBERT product--theory NLI, COLIEE-style~\citep{rabelo2022coliee} precedent retrieval without interval closure, and VIGIL without temporal gating. These baselines disentangle product--theory matching, legal entailment, retrieval quality, test-time compute, and the hard validity gate.
+
+\textbf{Automatic evaluation.} All reported automatic metrics freeze the treatment graph produced by the extractor; low-confidence edges are \emph{not} human-reviewed at evaluation time (review routing is a deployment option only). \textbf{Evaluation metrics.} We report macro F1/precision/recall over three severity labels, report-quality ratings by two blinded specialists, loop efficiency, PLRE precision/recall/F1, edge-error propagation, and evidence-coverage omission risk under calibrated thresholds. Severity-label F1 measures triage-label agreement, not legal liability. Calibrated omission risk and backbone robustness appear in the appendix; hyperparameters are listed in Table~\ref{tab:hyperparams}.
+
+\subsection{RQ1: Severity-Label Agreement}
+
+Table~\ref{tab:human_only_main} reports severity-label agreement on the human-adjudicated subset ($n{=}82$). VIGIL reaches 0.79 macro F1 vs.\ 0.75 for iteration-matched B5; the same rank order holds on the full held-out test set. These triage numbers are secondary to PLRE and are not significance-tested. B1 omits the composite bonuses used by the pre-labeler, so its full-test F1 (0.62) is not circular.
+
+\begin{table}[t]
+\centering
+\caption{Macro severity-label agreement. Human-adjudicated subset ($n{=}82$; primary). Full: held-out test including retained pre-labels.}
+\label{tab:human_only_main}
+\small
+\setlength{\tabcolsep}{3pt}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lccc|c}
+\toprule
+ & \multicolumn{3}{c|}{\textbf{Human-adjudicated}} & \textbf{Full} \\
+\textbf{System} & \textbf{F1} & \textbf{P} & \textbf{R} & \textbf{F1} \\
+\midrule
+B1 Additive-only        & 0.55 & 0.55 & 0.56 & 0.62 \\
+B2 Single-Pass LLM   & 0.70 & 0.70 & 0.71 & 0.72 \\
+B3 RAG-only          & 0.72 & 0.72 & 0.72 & 0.74 \\
+B4 Single-Agent      & 0.74 & 0.74 & 0.74 & 0.76 \\
+B5 Self-Refinement   & 0.75 & 0.75 & 0.75 & 0.77 \\
+\textbf{VIGIL Full}  & \textbf{0.79} & \textbf{0.79} & \textbf{0.80} & \textbf{0.81} \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\subsection{RQ2: Report Quality}
+
+Two blinded specialists rated VIGIL and B2--B5 reports on 15 cases (75 reports) along Accuracy, Completeness, Actionability, Evidence Sufficiency, and Clarity (5-point scales). VIGIL mean scores are 4.3/4.1/4.2/4.4/3.9 on the five scales (Evidence Sufficiency highest). We do not claim pairwise superiority over B2--B5 without reporting their means here. Mean inter-rater $\kappa=0.68$ (substantial agreement under Landis and Koch's scale;~\citep{landis1977kappa}). RQ2 is supporting evidence only ($n{=}15$).
+
+\subsection{RQ3: Agentic Loop and Temporal Graph Ablations}
+
+Temporal precedent reasoning is the central empirical claim. Table~\ref{tab:temporal_ablation} isolates the two mechanisms of Eq.~\eqref{eq:tpg_score}. Full validity-interval gating plus treatment weighting yields PLRE F1 of 0.78 and a stale-citation rate of 4.1\%. Removing treatment weighting alone drops F1 by 0.03 and roughly doubles stale citations (7.8\%). Removing interval gating entirely (recovering flat semantic similarity) widens the gap to $\Delta$F1 ${=}{-}0.06$ and raises the stale-citation rate to 12.7\%---a threefold increase. Flat retrieval systematically promotes lexically similar but already-closed authorities over still-operative ones, altering the evidence that reaches the generator. This controlled degradation constitutes the paper's main methodological result.
+
+\begin{table}[t]
+\centering
+\caption{Temporal precedent-graph ablation (main claim). Both mechanisms of Eq.~\eqref{eq:tpg_score} are removed in sequence; the bottom row recovers flat semantic similarity. Full gating cuts the stale-citation rate from 12.7\% to 4.1\% while improving PLRE F1 by 0.06. Stale-cite measures citations to already-closed precedent ($t_q\!\ge\!e_v$).}
+\label{tab:temporal_ablation}
+\small
+\setlength{\tabcolsep}{4pt}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{l c c c}
+\toprule
+\textbf{Variant} & \textbf{PLRE F1} & \textbf{$\Delta$F1} & \textbf{Stale-cite \%} \\
+\midrule
+\textbf{VIGIL (Full: gating + weighting)} & 0.78 & --- & 4.1 \\
+$-$ treatment weighting $w(\cdot)$        & 0.75 & $-0.03$ & 7.8 \\
+$-$ interval gating (flat similarity)     & 0.72 & $-0.06$ & 12.7 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+Table~\ref{tab:edge_sensitivity} measures how negative-treatment errors propagate. The ``Gold negative edges'' row substitutes gold-labeled negative-treatment relations on the 600 annotated citation spans into the live graph for those spans only (the remaining extracted edges are left unchanged); it is not a full replacement of all 4{,}760 graph edges. Residual stale-cite under gold (3.7\%) arises when the generator cites a closed authority that entered context through precedent chaining rather than as a gated support document, or when annotator validity judgments disagree with interval closure on boundary cases. The extractor row operates at the observed miss rate ($\approx$23\%, from 0.77 recall) and costs 2 PLRE F1 points relative to that gold-span substitution. Rows below additionally mask a random fraction of the \emph{extracted} negative-treatment edges before retrieval: removing a further 23\% of them ($\approx$41\% effective miss rate) roughly doubles the stale-cite rate (4.1\%$\rightarrow$8.9\%) and lowers PLRE F1 by 4 points.
+
+\begin{table}[t]
+\centering
+\caption{Edge-error propagation audit. Gold row substitutes labels on the 600 annotated spans only. ``Mask $x$\%'' rows also remove $x$\% of extracted negative-treatment edges (closures or down-weights). Effective miss rate $\approx1-0.77(1-x)$ from the extractor's 0.77 recall; $\Delta$F1 is relative to the extractor row.}
+\label{tab:edge_sensitivity}
+\small
+\setlength{\tabcolsep}{4pt}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{l c c c c}
+\toprule
+\textbf{Setting} & \textbf{Eff.\ miss} & \textbf{PLRE F1} & \textbf{$\Delta$F1} & \textbf{Stale-cite \%} \\
+\midrule
+Gold negative edges (on spans)    & 0\%          & 0.80 & $+0.02$ & 3.7 \\
+Extractor output                  & $\approx$23\% & 0.78 & --- & 4.1 \\
+\,+ mask 10\% of extracted        & $\approx$31\% & 0.76 & $-0.02$ & 6.2 \\
+\,+ mask 23\% of extracted        & $\approx$41\% & 0.74 & $-0.04$ & 8.9 \\
+\,+ mask 30\% of extracted        & $\approx$46\% & 0.72 & $-0.06$ & 11.3 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+Component ablations for the agentic loop confirm each part contributes: removing the Goal Checker, Planner, and Retriever query-expansion lowers full-test-set F1 from 0.81 to 0.76/0.78/0.79 respectively, and only query-expansion removal degrades retrieval (Recall@10 $0.84\!\rightarrow\!0.76$); details are in Table~\ref{tab:ablation}.
+
+\subsection{RQ4: Product--Litigation Risk Entailment}
+
+PLRE uses anonymized product-attribute cards (five archetypes: training-data ingestion, output reproduction, API distribution, model-weight release, multimodal scraping) paired with docket-grounded theory cards across 312 product-mapping cases (1{,}856 pairs; 28.4\% positive; 19.7\% stale-authority distractors; $\kappa=0.71$). Cards were authored by the legal-research annotators from public product documentation and complaint allegations under a fixed guideline. Pairs are stratified by product archetype and year so that every archetype appears in train, validation, and test (1{,}112 / 372 / 372 pairs); the test split is not held-out by unseen archetype. Few-shot exemplars and the entailment threshold use only train/validation; \emph{all reported metrics use the 372 held-out test pairs}. Table~\ref{tab:plre_external}: VIGIL Full reaches 0.78 F1 (+0.06 vs.\ no-gate; +0.05--0.13 vs.\ external baselines). VIGIL without gating (0.72) sits slightly below RAG-only (0.73), indicating that the agentic loop without a validity filter can reinforce stale but lexically close precedent; the gate is the component that improves PLRE. Gains partly reflect rejection of stale distractors (19.7\% of pairs). We report the full held-out set only (no non-distractor-only F1; Limitations) and treat deltas as point estimates under a frozen protocol.
+
+\begin{table}[t]
+\centering
+\caption{PLRE comparison against external legal-NLI and precedent-retrieval baselines. External systems do not use VIGIL's goal predicate or validity-interval closure. Held-out test pairs only.}
+\label{tab:plre_external}
+\small
+\setlength{\tabcolsep}{4pt}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{l c c c}
+\toprule
+\textbf{System} & \textbf{Precision} & \textbf{Recall} & \textbf{F1} \\
+\midrule
+Product--theory cosine                 & 0.64 & 0.66 & 0.65 \\
+LegalBERT product--theory NLI           & 0.69 & 0.68 & 0.68 \\
+COLIEE-style retrieval, no gate       & 0.71 & 0.70 & 0.70 \\
+RAG-only generation                    & 0.73 & 0.74 & 0.73 \\
+VIGIL without temporal gating          & 0.72 & 0.73 & 0.72 \\
+\textbf{VIGIL Full}                    & \textbf{0.77} & \textbf{0.80} & \textbf{0.78} \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\subsection{RQ5: Evidence-Coverage Risk Control and Temporal Shift}
+
+Calibrating the evidence threshold to $\alpha\in\{0.05,0.10,0.20\}$ yields omission risk 0.043/0.082/0.171 in random splits. Under a temporal split (2023--24 $\rightarrow$ 2025) the achieved risk rises to 0.061/0.113/0.196, exceeding the target at $\alpha{=}0.05$ and $0.10$ (Table~\ref{tab:risk_control_temporal}), which motivates rolling re-calibration. To probe dependence on GPT-4o, an open-weights Llama-3.1-70B+bge stack runs unchanged, with full-test-set macro F1 0.81$\rightarrow$0.76 and 2.4 vs.\ 2.6 iterations (Table~\ref{tab:robustness}). Baselines were not re-run on this stack, so this does not show a backbone-independent advantage.

@@ -1,0 +1,25 @@
+\section{Problem Formulation}
+\label{sec:formulation}
+
+Let $\mathcal{D}=\{d_1,\ldots,d_n\}$ be public litigation documents with metadata and text, and let $P$ be a product specification describing architecture, data provenance, modality, and deployment context. VIGIL returns a structured risk report $R^*$ and mitigation candidates $G^*$ that must satisfy an auditable goal predicate $\mathcal{G}$ (\S\ref{sec:goal_checker}). Report quality is not optimized directly; we evaluate it by severity-label F1 (RQ1), blinded report ratings (RQ2), and the coverage loss $L_\tau$ (RQ5). The core difficulty is a domain gap: product specifications employ engineering terms (data pipelines, API distribution), whereas litigation documents speak in causes of action, procedural posture, and precedent. PLRE (\S\ref{sec:plre}) therefore requires mapping engineering-language attributes onto legal-risk theories while conditioning the support set on authority that remains valid at the query date.
+
+\subsection{Goal Predicate and Stopping Rule}
+\label{sec:goal_checker}
+
+VIGIL treats report generation as goal-conditioned planning. The predicate is
+\begin{equation}
+\label{eq:goal_predicate}
+  \mathcal{G}(R)=\mathcal{G}_{\text{risk}}(R)\wedge\mathcal{G}_{\text{evidence}}(R)\wedge\mathcal{G}_{\text{guide}}(R),
+\end{equation}
+where $\mathcal{G}_{\text{risk}}$ requires every risk item to carry a severity label, $\mathcal{G}_{\text{evidence}}$ requires at least $k$ supporting documents above relevance threshold $\tau$, and $\mathcal{G}_{\text{guide}}$ requires mitigation text for each High or Medium item. The controller selects among \textsc{Search}, \textsc{Analyze}, \textsc{Summarize}, \textsc{Map}, \textsc{Verify}, and \textsc{Report}; the deterministic (LLM-free) Goal Checker either terminates, emits a structured critique that closes residual gaps, or escalates unmet conditions. For example, if a High-risk item is supported by only one valid authority after gating, the critique records the missing theory, product attribute, jurisdiction, query date, and required evidence count; the Planner converts this critique into narrower precedent and entity queries rather than simply retrying the same prompt.
+
+Let $\Phi(R_t)$ count the unmet atomic sub-conditions of $\mathcal{G}$, and let $\mathcal{T}^{\text{H}}_c$ be the human-labeled High-risk theories of case $c$ that are \emph{retrievable}---i.e., supported by at least one authority in $\mathcal{D}$ that is valid at $t_q$. The coverage loss at evidence threshold $\tau$ is
+\begin{equation}
+  L_\tau(c)=\mathbf{1}\bigl[\exists\,T\in\mathcal{T}^{\text{H}}_c:\ T\notin R^*\bigr].
+\end{equation}
+\begin{proposition}[Coverage-controlled stopping with escalation]
+\label{prop:termination}
+Assume the set of risk items under consideration is fixed within a run (the Reporter may rewrite mitigation text but does not introduce new risk atoms that expand $\Phi$). Under monotone evidence caching and attainable progress, $\Phi(R_t)$ is non-increasing, reaches zero in at most $\Phi(R_0)$ successful progress steps when all atoms are attainable, and otherwise returns the residual atoms at $T_{\max}$. If $\hat\tau$ is selected on exchangeable calibration cases by conformal risk control, then the next-case omission risk satisfies $\mathbb{E}[L_{\hat\tau}]\le\alpha$.
+\end{proposition}
+The first clause follows almost directly from the definitions: monotone caching ensures that no satisfied atom becomes unmet, and attainable progress (each pass closes at least one attainable atom) is a design assumption that we do not verify directly. The second clause is a standard application of conformal risk control~\citep{angelopoulos2023conformalrisk} to $L_\tau$, which is monotone in $\tau$ (Appendix~\ref{app:theory}). It governs evidence coverage only, holds only for exchangeable cases---our temporal split violates it at $\alpha\in\{0.05,0.10\}$ (\S\ref{sec:evaluation})---and its tightness depends on the calibration-set size (150 cases).
+

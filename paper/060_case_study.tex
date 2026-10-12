@@ -1,0 +1,32 @@
+\section{Dataset}
+\label{sec:dataset}
+VIGIL-Dataset is a curated benchmark of AI-related copyright and intellectual-property litigation designed for structured risk analysis. We describe its construction, statistics, and annotation protocol below; additional inclusion criteria and scoring details appear in Appendix~\ref{app:full_schema}--\ref{app:risk_matrix}.
+
+\subsection{Construction and Statistics}
+The dataset compiles CourtListener/RECAP filings and supplementary legal-news signals spanning January 2020 to December 2025, with the majority of filings concentrated in 2023--2025. Cases were obtained via a retrospective keyword search of RECAP complaints (terms covering generative models, training data, model weights, and AI-assisted products) and were manually screened to confirm that AI development, training, or deployment was at issue. The scope is intentionally broader than copyright-only trackers: it includes privacy, publicity, product-liability, and contract theories when AI systems are material to the dispute, and counts each docket separately (including related and consolidated filings). One case corresponds to one docket; consolidated actions are therefore counted per docket (App.~\ref{app:inclusion}). Table~\ref{tab:dataset_stats} summarizes the final annotated subset (1{,}247 dockets after screening and dedup; $\approx$980 distinct disputes). Annual post-screening counts by litigation type appear in Table~\ref{tab:dataset_annual} (appendix).
+
+\begin{table}[t]
+\centering
+\caption{VIGIL-Dataset summary statistics. The three-class risk label merges \emph{critical} and \emph{high} into \emph{High}. Status counts (initiated/active/settled/dismissed) sum to the full set of 1{,}247 cases.}
+\label{tab:dataset_stats}
+\footnotesize
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{p{4.2cm} c}
+\toprule
+\textbf{Attribute} & \textbf{Value} \\
+\midrule
+Total cases & 1{,}247 \\
+Total documents & 8{,}934 \\
+Coverage period & 2020--2025 \\
+Unique defendants & 43 \\
+Risk labels & 3 (High/Med/Low) \\
+Status dist.\ (Init/Active/Settled/Dismissed) & 298/695/148/106 \\
+Product-mapping GT cases & 312 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Each record contains docket metadata, parties, document URLs, and a human-verified litigation summary. Status labels encode workflow state rather than adjudicated outcome; severity is reported separately and is not interpreted as liability.
+
+\subsection{Annotation and Availability}
+An automated pre-labeler first assigns a triage score using the additive matrix in Table~\ref{tab:risk_matrix}. Three legal research specialists then independently review a stratified sample of 400 cases under a fixed guideline. During adjudication, annotators see docket text, product attributes, candidate theory cards, and query dates, but neither system identity nor the pre-labeler's score. The remaining 847 cases retain automated pre-labels; a 5\% spot-check yields 91\% agreement with at least one specialist (a lenient criterion). Inter-annotator agreement on the 400-case sample is mean pairwise Cohen's $\kappa=0.74$ across the three annotator pairs~\citep{landis1977kappa} (Fleiss' $\kappa=0.72$). Because retained labels can inflate metrics, we release per-record provenance, restrict all primary claims to the human-only evaluation, and treat retained-label results solely as scale-oriented comparisons. The top three defendants account for 41.3\% of cases, limiting representativeness for smaller vendors and non-U.S.\ jurisdictions. The dataset, guidelines, split files, seeds, and evaluation scripts are supplied as anonymized supplementary material for review (App.~\ref{app:repro}).
