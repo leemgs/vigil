@@ -1,0 +1,31 @@
+\section*{Ethical Considerations}
+\label{sec:ethics}
+
+\paragraph{Decision-support boundary.}
+\sysname{} emits risk intelligence, evidence summaries, and mitigation candidates with provenance and residual uncertainty for qualified human reviewers.
+It is not legal advice: it does not replace counsel, predict litigation outcomes, or recommend business decisions, and severity labels are triage proxies that are not interpreted as liability.
+Every High- or Medium-risk item is presented for review by a qualified person, and unresolved legal-status atoms are surfaced as such rather than resolved automatically.
+
+\paragraph{Human oversight of failure modes.}
+Low-confidence negative-treatment edges enter a human review queue, since missed negative-treatment actions are the failure mode most likely to admit stale authority into a report.
+Reviewers can distinguish a genuine product--theory match from a retrieval gap or an unresolved legal-status ambiguity.
+
+\paragraph{Data governance.}
+Released data are public docket metadata and machine-generated summaries; we do not redistribute attorney-authored complaint text beyond what is already public, and the P2 citator study releases only the cross-walk, sampling seeds, and agreement statistics, with no redistributed proprietary citator content.
+Protocol~P2 used a commercial citator under the authors' institutional research subscription.
+Because the precise product name is omitted for licensing reasons, exact reproduction of the P2 numbers requires an equivalent institutional subscription.
+We release the mapping rules so that any subscriber can re-run the agreement calculation.
+
+\paragraph{Annotators and raters.}
+The three legal research specialists who adjudicated labels and the two specialists who rated reports are staff of the authors' institution and performed this work within their regular paid duties.
+Before annotation began, participants received a written description of the task, the intended research use of their labels, data-handling practices, and the voluntary nature of participation; verbal consent was obtained and recorded.
+The work consisted solely of labeling public court documents and collected no personal information about the participants beyond institutional employment status.
+Under the authors' institutional human-subjects policy for secondary analysis of public records with no identifiable private information about research subjects, the activity was determined not to constitute human-subjects research requiring IRB review.
+This determination is recorded in the released annotation guidelines.
+Institutional affiliation of annotators is a potential source of bias (Limitations).
+Annotation guidelines are released with the dataset so that external replications can use independent raters.
+
+\paragraph{Use of AI assistants.}
+AI writing assistants were used to edit and polish the text of this paper.
+An AI coding assistant also wrote the code for the P1 pilot, following a design fixed by the authors; the pilot design was frozen before any run, and its results were reported as produced.
+Research ideas, system design, and the remaining experiments and analyses are the authors' own.

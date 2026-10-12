@@ -1,12 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.7.12)  12 OCT 2026 22:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.7.12)  12 OCT 2026 22:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**./main.tex
-(./main.tex
-LaTeX2e <2023-11-01> patch level 1
-L3 programming layer <2024-01-22>
-(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+**\def\aclmode{review}\input{main.tex}
+(./main.tex (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2023/05/17 v1.4n Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/base/size11.clo
 File: size11.clo 2023/05/17 v1.4n Standard LaTeX file (size option)
@@ -793,4 +790,682 @@ Library (tcolorbox): 'tcbbreakable.code.tex' version '6.2.0'
 (/var/www/invain/texmf/tex/latex/pdfcol/pdfcol.sty
 Package: pdfcol 2022-09-21 v1.7 Handle new color stacks for pdfTeX (HO)
 )
-Package pdfcol Info: New color stack `tcb@breakable' = 1 on inp
+Package pdfcol Info: New color stack `tcb@breakable' = 1 on input line 23.
+\tcb@testbox=\box81
+\tcb@totalupperbox=\box82
+\tcb@totallowerbox=\box83
+)
+(/var/www/invain/texmf/tex/latex/tcolorbox/tcbhooks.code.tex
+Library (tcolorbox): 'tcbhooks.code.tex' version '6.2.0'
+) (/var/www/invain/texmf/tex/latex/tcolorbox/tcbtheorems.code.tex
+Library (tcolorbox): 'tcbtheorems.code.tex' version '6.2.0'
+) (/var/www/invain/texmf/tex/latex/tcolorbox/tcbfitting.code.tex
+Library (tcolorbox): 'tcbfitting.code.tex' version '6.2.0'
+\tcbfitdim=\dimen303
+\tcb@lowerfitdim=\dimen304
+\tcb@upperfitdim=\dimen305
+\tcb@cur@hbadness=\count345
+) (/var/www/invain/texmf/tex/latex/tcolorbox/tcblistingsutf8.code.tex
+Library (tcolorbox): 'tcblistingsutf8.code.tex' version '6.2.0'
+(/var/www/invain/texmf/tex/latex/tcolorbox/tcblistings.code.tex
+Library (tcolorbox): 'tcblistings.code.tex' version '6.2.0'
+(/var/www/invain/texmf/tex/latex/listings/listings.sty
+\lst@mode=\count346
+\lst@gtempboxa=\box84
+\lst@token=\toks55
+\lst@length=\count347
+\lst@currlwidth=\dimen306
+\lst@column=\count348
+\lst@pos=\count349
+\lst@lostspace=\dimen307
+\lst@width=\dimen308
+\lst@newlines=\count350
+\lst@lineno=\count351
+\lst@maxwidth=\dimen309
+
+(/var/www/invain/texmf/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
+\c@lstnumber=\count352
+\lst@skipnumbers=\count353
+\lst@framebox=\box85
+)
+(/var/www/invain/texmf/tex/latex/listings/listings.cfg
+File: listings.cfg 2023/02/27 1.9 listings configuration
+))
+Package: listings 2023/02/27 1.9 (Carsten Heinz)
+
+(/var/www/invain/texmf/tex/latex/tcolorbox/tcblistingscore.code.tex
+Library (tcolorbox): 'tcblistingscore.code.tex' version '6.2.0'
+(/var/www/invain/texmf/tex/latex/tcolorbox/tcbprocessing.code.tex
+Library (tcolorbox): 'tcbprocessing.code.tex' version '6.2.0'
+)
+\c@tcblisting=\count354
+)) (/var/www/invain/texmf/tex/latex/listingsutf8/listingsutf8.sty
+Package: listingsutf8 2019-12-10 v1.5 Allow UTF-8 in listings input (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/stringenc/stringenc.sty
+Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
+)
+)))
+(/var/www/invain/texmf/tex/latex/tcolorbox/tcbexternal.code.tex
+Library (tcolorbox): 'tcbexternal.code.tex' version '6.2.0'
+) (/var/www/invain/texmf/tex/latex/tcolorbox/tcbmagazine.code.tex
+Library (tcolorbox): 'tcbmagazine.code.tex' version '6.2.0'
+) (/var/www/invain/texmf/tex/latex/tcolorbox/tcbvignette.code.tex
+Library (tcolorbox): 'tcbvignette.code.tex' version '6.2.0'
+
+(/var/www/invain/texmf/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrary
+fadings.code.tex
+File: tikzlibraryfadings.code.tex 2023-01-15 v3.1.10 (3.1.10)
+
+(/var/www/invain/texmf/tex/generic/pgf/libraries/pgflibraryfadings.code.tex
+File: pgflibraryfadings.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)))
+(/var/www/invain/texmf/tex/latex/tcolorbox/tcbposter.code.tex
+Library (tcolorbox): 'tcbposter.code.tex' version '6.2.0'
+))
+(/var/www/invain/texmf/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrary
+positioning.code.tex
+File: tikzlibrarypositioning.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/var/www/invain/texmf/tex/generic/pgf/libraries/pgflibraryarrows.meta.code.tex
+File: pgflibraryarrows.meta.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfarrowinset=\dimen310
+\pgfarrowlength=\dimen311
+\pgfarrowwidth=\dimen312
+\pgfarrowlinewidth=\dimen313
+)
+(/var/www/invain/texmf/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrary
+fit.code.tex
+File: tikzlibraryfit.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/var/www/invain/texmf/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrary
+backgrounds.code.tex
+File: tikzlibrarybackgrounds.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@layerbox@background=\box86
+\pgf@layerboxsaved@background=\box87
+)
+(/var/www/invain/texmf/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrary
+calc.code.tex
+File: tikzlibrarycalc.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+\c@proposition=\count355
+ (./001_title.tex)
+(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count356
+\l__pdf_internal_box=\box88
+)
+(./main.aux)
+\openout1 = `main.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+ (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count357
+\scratchdimen=\dimen314
+\scratchbox=\box89
+\nofMPsegments=\count358
+\nofMParguments=\count359
+\everyMPshowfont=\toks56
+\MPscratchCnt=\count360
+\MPscratchDim=\dimen315
+\MPnumerator=\count361
+\makeMPintoPDFobject=\count362
+\everyMPtoPDFconversion=\toks57
+) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: heightrounded 
+* h-part:(L,W,R)=(71.13188pt, 455.24411pt, 71.13188pt)
+* v-part:(T,H,B)=(71.13188pt, 702.78308pt, 71.13188pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=455.24411pt
+* \textheight=704.60031pt
+* \oddsidemargin=-1.1381pt
+* \evensidemargin=-1.1381pt
+* \topmargin=-38.1381pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=11.0pt
+* \footskip=30.0pt
+* \marginparwidth=59.0pt
+* \marginparsep=10.0pt
+* \columnsep=17.07182pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumntrue
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
+Package caption Info: hyperref package is loaded.
+Package caption Info: listings package is loaded.
+Package caption Info: End \AtBeginDocument code.
+Package hyperref Info: Link coloring ON on input line 83.
+(./main.out) (./main.out)
+\@outlinefile=\write4
+\openout4 = `main.out'.
+
+LaTeX Info: Redefining \microtypecontext on input line 83.
+Package microtype Info: Applying patch `item' on input line 83.
+Package microtype Info: Applying patch `toc' on input line 83.
+Package microtype Info: Applying patch `eqnum' on input line 83.
+Package microtype Info: Applying patch `footnote' on input line 83.
+Package microtype Info: Applying patch `verbatim' on input line 83.
+Package microtype Info: Generating PDF output.
+Package microtype Info: Character protrusion enabled (level 2).
+Package microtype Info: Using default protrusion set `alltext'.
+Package microtype Info: Automatic font expansion enabled (level 2),
+(microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
+Package microtype Info: Using default expansion set `alltext-nott'.
+LaTeX Info: Redefining \showhyphens on input line 83.
+Package microtype Info: No adjustment of tracking.
+Package microtype Info: No adjustment of interword spacing.
+Package microtype Info: No adjustment of character kerning.
+ (/var/www/invain/texmf/tex/latex/microtype/mt-ptm.cfg
+File: mt-ptm.cfg 2006/04/20 v1.7 microtype config. file: Times (RS)
+)
+\c@lstlisting=\count363
+ (/var/www/invain/texmf/tex/latex/microtype/mt-cmr.cfg
+File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
+(RS)
+)
+LaTeX Font Info:    Trying to load font information for U+lasy on input line 85
+.
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ulasy.fd
+File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
+)
+LaTeX Font Info:    Trying to load font information for U+msa on input line 85.
+
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+(/var/www/invain/texmf/tex/latex/microtype/mt-msa.cfg
+File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 85.
+
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+(/var/www/invain/texmf/tex/latex/microtype/mt-msb.cfg
+File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
+) (./010_abstract.tex)
+(./020_introduction.tex
+Underfull \hbox (badness 1688) in paragraph at lines 8--9
+[]\T1/ptm/m/n/10.95 (+20) We present VIGIL (\T1/ptm/b/n/10.95 (+20) Validity-In
+terval Gat-
+ []
+
+[1{/var/www/invain/.texlive2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/
+usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}
+
+
+
+]
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 1
+2.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd
+File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
+)
+Underfull \hbox (badness 1057) in paragraph at lines 15--16
+\T1/ptm/m/n/10.95 (+20) lic SCO-TUS over-rul-ing pair re-source (Ap-
+ []
+
+) (./045_motivation.tex
+Underfull \vbox (badness 1189) has occurred while \output is active []
+
+
+Underfull \hbox (badness 4217) in paragraph at lines 16--17
+[]\T1/ptm/m/n/10.95 (+20) Let $\OT1/cmr/m/n/10.95 ^^H(\OML/cmm/m/it/10.95 R[]\O
+T1/cmr/m/n/10.95 )$ \T1/ptm/m/n/10.95 (+20) count the un-met atomic sub-
+ []
+
+[2]) (./050_design_implement.tex
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 10
+.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
+File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
+)
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `pcr' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+
+Underfull \hbox (badness 2460) in paragraph at lines 15--16
+\T1/ptm/m/n/10.95 (+20) The four spe-cial-ized agents and the cen-tral
+ []
+
+
+Underfull \hbox (badness 8019) in paragraph at lines 15--16
+\T1/ptm/m/n/10.95 (+20) the \T1/ptm/b/n/10.95 (+20) An-a-lyzer \T1/ptm/m/n/10.9
+5 (+20) com-putes $[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 d[]; P; C\OT1/cmr/
+m/n/10.95 )$\T1/ptm/m/n/10.95 (+20) ,
+ []
+
+
+Underfull \hbox (badness 2884) in paragraph at lines 15--16
+\T1/ptm/m/n/10.95 (+20) tax-on-omy (Train-ing Data, Out-put Re-pro-duc-
+ []
+
+
+Underfull \hbox (badness 7944) in paragraph at lines 15--16
+\T1/ptm/m/n/10.95 (+20) re-turns machine-readable resid-u-als such as
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 15--16
+\T1/pcr/m/n/10.95 missing(valid-authority, DMCA,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 15--16
+\T1/pcr/m/n/10.95 output-CMI, NDCA, 2025-02)\T1/ptm/m/n/10.95 (+20) ; the
+ []
+
+
+Underfull \hbox (badness 2302) in paragraph at lines 15--16
+\T1/ptm/m/n/10.95 (+20) en-ti-ty/-date/the-ory queries; and the \T1/ptm/b/n/10.
+95 (+20) Re-porter
+ []
+
+<fig_tpg.png, id=298, 270.5307pt x 127.4361pt>
+File: fig_tpg.png Graphic file (type png)
+<use fig_tpg.png>
+Package pdftex.def Info: fig_tpg.png  used on input line 32.
+(pdftex.def)             Requested size: 216.89647pt x 102.17651pt.
+[3]
+Underfull \hbox (badness 2707) in paragraph at lines 84--84
+[]|\T1/ptm/m/n/9 (+20) web-scale im-age
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 84--84
+[]|\T1/ptm/m/n/9 (+20) training-data
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 84--84
+\T1/ptm/m/n/9 (+20) copy-right in-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 84--84
+[]|\T1/ptm/m/n/9 (+20) only au-thor-ity
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 84--84
+\T1/ptm/m/n/9 (+20) whose in-ter-val
+ []
+
+
+Underfull \hbox (badness 4217) in paragraph at lines 84--84
+\T1/ptm/m/n/9 (+20) closed be-fore $\OML/cmm/m/it/9 t[]$
+ []
+
+
+Underfull \hbox (badness 7595) in paragraph at lines 84--84
+[]|\T1/ptm/m/n/9 (+20) output fil-ter re-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 84--84
+[]|\T1/ptm/m/n/9 (+20) DMCA Ÿ1202
+ []
+
+
+Underfull \hbox (badness 7326) in paragraph at lines 89--90
+[]\T1/ptm/m/n/10.95 (+20) PLRE gold la-bels are con-structed from
+ []
+
+[4 <./fig_tpg.png>]) (./060_case_study.tex
+Underfull \hbox (badness 10000) in paragraph at lines 23--23
+[]|\T1/ptm/m/n/9 (+20) Status dist. (Init/Ac-tive/Set-
+ []
+
+)
+Underfull \vbox (badness 2197) has occurred while \output is active []
+
+
+(./065_evaluation.tex [5]
+Underfull \hbox (badness 2512) in paragraph at lines 18--19
+\T1/ptm/m/n/10.95 (+20) with-out the goal-conditioned loop); and \T1/ptm/b/n/10
+.95 (+20) B5
+ []
+
+[6])
+Underfull \hbox (badness 10000) in paragraph at lines 129--114
+\T1/ptm/m/n/10.95 (+20) Calibrating the ev-i-dence thresh-old to
+ []
+
+
+Underfull \hbox (badness 1616) in paragraph at lines 129--114
+\OML/cmm/m/it/10.95  \OMS/cmsy/m/n/10.95 2 f\OT1/cmr/m/n/10.95 0\OML/cmm/m/it/
+10.95 :\OT1/cmr/m/n/10.95 05\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 0\OML/cmm/
+m/it/10.95 :\OT1/cmr/m/n/10.95 10\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 0\OML
+/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 20\OMS/cmsy/m/n/10.95 g$ \T1/ptm/m/n/10.95 
+(+20) yields omis-sion risk
+ []
+
+[7] (./070_related_work.tex) (./075_discussion.tex) (./085_conclusion.tex
+Underfull \hbox (badness 4569) in paragraph at lines 8--1
+[]\T1/ptm/m/n/10.95 (+20) On sever-ity triage ($\OML/cmm/m/it/10.95 n[]\OT1/cmr
+/m/n/10.95 82$\T1/ptm/m/n/10.95 (+20) ), VIGIL leads
+ []
+
+) [8] (./086_limitations.tex
+Underfull \hbox (badness 5802) in paragraph at lines 10--12
+[]\T1/ptm/b/n/10.95 (+20) Baselines not eval-u-ated on PLRE. \T1/ptm/m/n/10.95 
+(+20) B5
+ []
+
+
+Underfull \hbox (badness 1337) in paragraph at lines 22--24
+[]\T1/ptm/b/n/10.95 (+20) Reproducibility. \T1/ptm/m/n/10.95 (+20) Pri-mary run
+s used Ope-
+ []
+
+) (./087_ethics.tex [9]) (./main.bbl
+Underfull \hbox (badness 1163) in paragraph at lines 6--11
+[]\T1/ptm/m/n/10 (+20) Anastasios N. An-gelopou-los, Stephen Bates, Em-
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Underfull \hbox (badness 8113) in paragraph at lines 68--73
+[]\T1/ptm/m/n/10 (+20) Congressional Re-search Ser-vice. 2022.  The
+ []
+
+
+Underfull \hbox (badness 6575) in paragraph at lines 68--73
+\T1/ptm/m/n/10 (+20) Con-sti-tu-tion of the United States of Amer-
+ []
+
+
+Underfull \hbox (badness 5578) in paragraph at lines 68--73
+\T1/ptm/m/n/10 (+20) ica: Anal-y-sis and In-ter-pre-ta-tion, Cen-ten-nial
+ []
+
+
+Underfull \hbox (badness 1062) in paragraph at lines 83--89
+[]\T1/ptm/m/n/10 (+20) Bhuwan Dhin-gra, Jeremy R. Cole, Ju-lian Mar-tin
+ []
+
+[10]
+Underfull \hbox (badness 3271) in paragraph at lines 215--223
+[][]\T1/ptm/m/n/10 (+20) Retrieval-augmented gen-er-a-tion for knowledge-
+ []
+
+[11]) (./088_appendix.tex [12]
+Underfull \hbox (badness 3333) in paragraph at lines 23--24
+\T1/ptm/b/n/10.95 (+20) Search. \T1/ptm/m/n/10.95 (+20) Can-di-date dock-ets we
+re re-trieved
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \hbox (badness 1337) in paragraph at lines 79--79
+[]|\T1/ptm/m/n/9 (+20) Direct model train-ing
+ []
+
+
+Underfull \hbox (badness 1694) in paragraph at lines 79--79
+[]|\T1/ptm/m/n/9 (+20) train, LLM, trans-former,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 79--79
+[]|\T1/ptm/m/n/9 (+20) Commercial ex-ploita-
+ []
+
+
+Underfull \hbox (badness 1337) in paragraph at lines 87--89
+\T1/ptm/m/n/10.95 (+20) the agen-tic layer eval-u-ated in the main text.
+ []
+
+[13
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 157--158
+[]\T1/ptm/b/n/10.95 (+20) Hybrid dedu-pli-ca-tion\T1/ptm/m/n/10.95 (+20) : a tw
+o-stage
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 157--158
+\T1/ptm/m/n/10.95 (+20) pipeline (Al-go-rithm [][]1[][]) that com-bines
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 157--158
+\T1/ptm/m/n/10.95 (+20) lex-i-cal ti-tle/-docket match-ing with op-
+ []
+
+
+Underfull \hbox (badness 3058) in paragraph at lines 157--158
+\T1/ptm/m/n/10.95 (+20) tional se-man-tic sim-i-lar-ity us-ing Gem-ini
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 157--158
+\T1/pcr/m/n/10.95 text-embedding-004 \T1/ptm/m/n/10.95 (+20) em-bed-dings
+ []
+
+
+Underfull \hbox (badness 5652) in paragraph at lines 157--158
+\T1/ptm/m/n/10.95 (+20) (co-sine thresh-old 0.85), en-abled by a
+ []
+
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
+put line 163.
+
+Underfull \hbox (badness 3965) in paragraph at lines 174--175
+[] []$\OMS/cmsy/m/n/10.95 S   f\OML/cmm/m/it/10.95 i \OMS/cmsy/m/n/10.95 2 R j 
+9 \OML/cmm/m/it/10.95 e \OMS/cmsy/m/n/10.95 2 \OML/cmm/m/it/10.95 E[] \OT1/cmr/
+m/n/10.95 :
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 185--185
+[]\T1/ptm/m/n/10 (+20) Table A.3: |Key con-fig-u-ra-tion pa-ram-e-ters of
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 211--211
+[]|\T1/ptm/m/n/7 (+20) Cross-issue dedup win-dow
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \hbox (badness 4416) in paragraph at lines 217--218
+\T1/ptm/m/n/10.95 (+20) Table [][]A.4[][] re-ports the per-relation ac-cu-racy
+ []
+
+
+Underfull \hbox (badness 3138) in paragraph at lines 217--218
+\T1/ptm/m/n/10.95 (+20) the hand-labeled gold span set. Negative-
+ []
+
+
+Underfull \hbox (badness 1033) in paragraph at lines 217--218
+\T1/ptm/m/n/10.95 (+20) treatment edges drive validity-interval clo-sure
+ []
+
+[14]
+Underfull \vbox (badness 7814) has occurred while \output is active []
+
+ [15]
+Underfull \hbox (badness 10000) in paragraph at lines 335--336
+[] []$\OML/cmm/m/it/10.95 E[] \OMS/cmsy/m/n/10.95  
+ []
+
+
+Underfull \hbox (badness 1286) in paragraph at lines 379--379
+[]|\T1/ptm/m/n/9 (+20) Cautionary or ques-tioned treat-
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \vbox (badness 1117) has occurred while \output is active []
+
+ [16]
+Underfull \hbox (badness 1152) in paragraph at lines 408--410
+\T1/ptm/m/n/10.95 (+20) ran-dom and tem-po-ral cal-i-bra-tion splits: cal-i-
+ []
+
+
+Underfull \hbox (badness 1122) in paragraph at lines 408--410
+\T1/ptm/m/n/10.95 (+20) splits, while the tem-po-ral split ex-ceeds it at
+ []
+
+
+Underfull \hbox (badness 1092) in paragraph at lines 457--464
+\OML/cmm/m/it/10.95 k$\T1/ptm/m/n/10.95 (+20) ) so that ter-mi-na-tion meets a 
+user-specified
+ []
+
+[17]
+Underfull \hbox (badness 10000) in paragraph at lines 481--482
+[]\T1/ptm/b/n/10.95 (+20) Host re-triev-ers (un-mod-i-fied, ex-ter-nal).
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 481--482
+\T1/ptm/m/n/10.95 (+20) (i) BM25; (ii) a gen-eral dense re-triever
+ []
+
+
+Underfull \hbox (badness 8189) in paragraph at lines 481--482
+\T1/ptm/m/n/10.95 (+20) (\T1/pcr/m/n/10.95 text-embedding-3-large \T1/ptm/m/n/1
+0.95 (+20) or an open
+ []
+
+[18]
+Underfull \hbox (badness 3029) in paragraph at lines 501--502
+\T1/ptm/m/n/10.95 (+20) are BM25 ([][]Robert-son and Zaragoza[][], [][]2009[][]
+),
+ []
+
+
+Underfull \hbox (badness 1297) in paragraph at lines 505--506
+[]\T1/ptm/m/n/10.95 (+20) In a post-hoc sen-si-tiv-ity anal-y-sis (not pre-
+ []
+
+
+Underfull \hbox (badness 5189) in paragraph at lines 505--506
+\T1/ptm/m/n/10.95 (+20) specified), we ex-clude four BM25 queries
+ []
+
+
+Underfull \hbox (badness 3930) in paragraph at lines 505--506
+\T1/ptm/m/n/10.95 (+20) whose gold case was it-self later over-ruled
+ []
+
+[19]
+
+Package lineno Warning: Line number reference failed, re-run to get it right.
+
+) [20] [21
+
+] (./main.aux)
+ ***********
+LaTeX2e <2023-11-01> patch level 1
+L3 programming layer <2024-01-22>
+ ***********
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: 22427AC3B1E24A7DD4B22E628355D424;8896.
+ ) 
+Here is how much of TeX's memory you used:
+ 34599 strings out of 475589
+ 672393 string characters out of 5782860
+ 1966975 words of memory out of 5000000
+ 55342 multiletter control sequences out of 15000+600000
+ 672854 words of font info for 539 fonts, out of 8000000 for 9000
+ 309 hyphenation exceptions out of 8191
+ 97i,15n,102p,1813b,984s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></u
+sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmti8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
+amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/symbols/msbm10.pfb></var/www/invain/texmf/fonts/type1/urw/courier/ucrb8
+a.pfb></var/www/invain/texmf/fonts/type1/urw/courier/ucrr8a.pfb></var/www/invai
+n/texmf/fonts/type1/urw/helvetic/uhvb8a.pfb></var/www/invain/texmf/fonts/type1/
+urw/times/utmb8a.pfb></var/www/invain/texmf/fonts/type1/urw/times/utmr8a.pfb></
+var/www/invain/texmf/fonts/type1/urw/times/utmri8a.pfb>
+Output written on main.pdf (21 pages, 468282 bytes).
+PDF statistics:
+ 977 PDF objects out of 1000 (max. 8388607)
+ 862 compressed objects within 9 object streams
+ 178 named destinations out of 1000 (max. 500000)
+ 92154 words of extra memory for PDF output out of 106986 (max. 10000000)
+

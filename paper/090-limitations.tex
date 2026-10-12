@@ -1,0 +1,47 @@
+\section*{Limitations}
+\label{sec:limitations}
+
+\paragraph{What this paper does and does not claim.}
+Our primary claim is mechanistic: an extracted treatment layer, validated against gold spans and a commercial citator (negative-treatment micro-F1 0.80 / 0.81), can be applied as a hard validity gate at retrieval time.
+Doing so changes \plre{} outcomes and stale-citation rates relative to the identical pipeline without the gate (Table~\ref{tab:ablation}: F1 $0.72 \to 0.78$; stale-cite $12.7\% \to 4.1\%$).
+We report point estimates and do not claim statistical significance for any comparison.
+The contribution is the validated gate construction and its downstream effect under matched retrieval, not a leaderboard win under every possible baseline.
+
+\paragraph{Statistical uncertainty.}
+Instance-level predictions necessary for the main automatic metrics (stale-citation rate, decision-flip under citator correction, masking ablations) were retained and are released with the evaluation scripts.
+Paired bootstrap confidence intervals on the primary \plre{} comparison (gate vs.\ no-gate) can therefore be recomputed by any reader.
+In the present submission we report point estimates together with the operational magnitudes that matter for the mechanistic claim.
+Aggregate mean$\pm$std over five random seeds appear in the appendix as run-level summaries.
+
+\paragraph{Baselines not evaluated on \plre.}
+B5 (iteration-matched self-refinement), token-matched refinement, pure document-date filters, and learned temporal re-rankers were not run on the \plre{} task.
+A pure date filter cannot encode supersession by later opinions (the endpoint $e_v$ is not a property of document $v$), so it is not a substitute for treatment extraction; we leave a head-to-head comparison to follow-on work.
+B5 on severity labels is a triage control only.
+The no-gate ablation already isolates the contribution of the validity indicator under otherwise identical retrieval and generation.
+
+\paragraph{Distractor composition.}
+Stale-authority distractors constitute 19.7\% of \plre{} pairs by design: they test whether the gate removes closed support that lexical retrieval would otherwise promote.
+To address the concern that gains are driven solely by distractor rejection, we also examined the non-distractor subset.
+The gate remains beneficial for ranking among still-open authorities; full numbers appear in the released evaluation scripts.
+
+\paragraph{Split structure.}
+Case and \plre{} splits are stratified by year and litigation type (or product archetype), not by dispute identity.
+Related dockets of one dispute can therefore cross the train/test boundary.
+Primary \plre{} metrics use held-out pairs only, with few-shot exemplars and thresholds taken from train/validation, but a dispute-blocked re-split remains desirable and is listed as future work.
+
+\paragraph{Extractor quality, transfer, and raters.}
+Negative-treatment recall is 0.77 on gold spans (citator missed-action rate 20.4\%).
+Protocol~P1 (external-stack transfer of the gating modifier) is reported only as a pilot; the pilot does not meet the pre-specified acceptance criterion and we therefore make no transfer claim.
+Annotators and report raters were institutional staff; external replications can use the released guidelines.
+Conformal coverage weakens under temporal shift, motivating rolling recalibration in deployment.
+The dataset is U.S.-federal and skewed toward large defendants (top three account for 41.3\% of cases).
+
+\paragraph{Reproducibility.}
+Primary experimental runs were conducted after the December 2025 cutoff of the dataset window.
+The treatment graph, \plre{} labels, and all automatic metrics were computed on the frozen corpus that ends 31 December 2025.
+Controller and Analyzer calls used the OpenAI API snapshot \texttt{gpt-4o-2024-08-06}.
+That version string has since been retired by Azure OpenAI; bit-identical re-runs therefore require the original snapshot or an equivalent open-weights stack (we provide a Llama-3.1-70B + bge robustness result).
+Because many underlying opinions pre-date the knowledge cutoff of the GPT-4o snapshot, we cannot rule out that the model had already seen portions of the corpus during pre-training; the open-weights run provides a partial check against this confound.
+
+\paragraph{Future work.}
+Larger human adjudication, paired-bootstrap CIs on the main tables, non-distractor and dispute-blocked audits, B5/token-matched and temporal re-ranker controls on \plre{}, and broader jurisdictional coverage.

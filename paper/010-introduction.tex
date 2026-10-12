@@ -1,0 +1,26 @@
+\section{Introduction}
+\label{sec:introduction}
+
+Generative-AI products face growing litigation over training data, output reproduction, model behavior, and downstream misuse \citep{henderson2023foundation,levendowski2018copyright,grimmelmann2016copyright}.
+High-profile suits such as \textit{Getty Images v.\ Stability AI}, \textit{New York Times v.\ Microsoft}, and \textit{Kadrey v.\ Meta} illustrate the range of theories from DMCA §1202 information removal to direct infringement and vicarious liability for outputs.
+For the engineering organizations that build these systems, the operational question is not merely whether a lawsuit exists, but whether a theory of liability maps onto a specific product attribute, whether the supporting authority remained valid at the relevant date, and which mitigation should be reviewed by counsel.
+Legal-operations teams track dockets and news, yet the bridge from a litigation event to a product-specific engineering action is usually manual.
+Keyword alerts surface noisy filings, docket trackers rarely map cases to product features, and conventional retrieval-augmented generation (RAG) \citep{lewis2020retrieval} treats semantically similar legal documents as interchangeable even when later decisions have narrowed or superseded them.
+
+We formalize this need as Product--Litigation Risk Entailment (\plre): deciding whether product attributes entail exposure to a legal-risk theory under time-valid precedent.
+\plre{} differs from standard legal textual entailment \citep{rabelo2022overview} in three respects: the premise is an engineering description rather than legal text, the relation is directional (product attribute $\to$ risk theory), and the support set is conditioned on which authority was operative at the query date.
+Unlike commercial citators such as Shepard's and KeyCite, we construct a public-corpus, automatically extracted, time-indexed treatment layer and connect it directly to product-facing entailment.
+
+We present \sysname{} (Validity-Interval Gating in Litigation), a continuous sensing system built around this task.
+Its core component is a supersession-aware treatment layer that infers when each authority ceases to be operative from treatment edges in later opinions.
+A simple retrieval-time gate applies these intervals before generation, rather than flagging stale citations after an LLM has already produced a report.
+Around this layer, a goal-conditioned agentic loop exposes unmet evidence requirements and stops when a coverage threshold is met.
+Although the treatment-layer construction is in principle applicable to any time-stamped corpus in which later documents can supersede earlier ones, we evaluate it only for U.S.\ case law within \sysname{}; external-stack transfer remains a pilot and is not claimed.
+
+Our contributions are:
+\begin{itemize}[leftmargin=*]
+\item a supersession-aware treatment layer that extracts treatment edges from public opinions, validates them against gold spans and a commercial citator, and propagates them into validity intervals that gate retrieval at query time (\S\ref{sec:temporal});
+\item \plre{}, an initial product-conditioned legal-risk entailment benchmark with non-VIGIL baselines and ablations that separate temporal validity from flat similarity (\S\ref{sec:plre}, \S\ref{sec:experiments});
+\item a goal-conditioned agentic loop with a coverage-based stopping rule; a conformal omission-risk bound holds under exchangeability and is reported as an auxiliary control (it is violated under temporal shift; \S\ref{sec:goal}, \S\ref{sec:experiments});
+\item VIGIL-Dataset with per-record provenance and a human-adjudicated subset (\S\ref{sec:dataset}), plus a public SCOTUS overruling pair resource (Appendix~H.1; external-stack pilot is incomplete).
+\end{itemize}

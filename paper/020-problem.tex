@@ -1,0 +1,35 @@
+\section{Problem Formulation}
+\label{sec:problem}
+
+Let $\mathcal{D} = \{d_1, \ldots, d_n\}$ be public litigation documents with metadata and text, and let $P$ be a product specification describing architecture, data provenance, modality, and deployment context.
+\sysname{} returns a structured risk report $R^*$ and mitigation candidates $\mathcal{G}^*$ that must satisfy an auditable goal predicate $\mathcal{G}$ (\S\ref{sec:goal}).
+Report quality is not optimized directly; we evaluate it by severity-label F1 (RQ1), blinded report ratings (RQ2), and the coverage loss $L_\tau$ (RQ5).
+The core difficulty is a domain gap: product specifications employ engineering terms (data pipelines, API distribution), whereas litigation documents speak in causes of action, procedural posture, and precedent.
+\plre{} (\S\ref{sec:plre}) therefore requires mapping engineering-language attributes onto legal-risk theories while conditioning the support set on authority that remains valid at the query date.
+
+\subsection{Goal Predicate and Stopping Rule}
+\label{sec:goal}
+
+\sysname{} treats report generation as goal-conditioned planning.
+The predicate is
+\begin{equation}
+\mathcal{G}(R) = \mathcal{G}_{\mathrm{risk}}(R) \land \mathcal{G}_{\mathrm{evidence}}(R) \land \mathcal{G}_{\mathrm{guide}}(R),
+\end{equation}
+where $\mathcal{G}_{\mathrm{risk}}$ requires every risk item to carry a severity label, $\mathcal{G}_{\mathrm{evidence}}$ requires at least $k$ supporting documents above relevance threshold $\tau$, and $\mathcal{G}_{\mathrm{guide}}$ requires mitigation text for each High or Medium item.
+The controller selects among \textsc{Search}, \textsc{Analyze}, \textsc{Summarize}, \textsc{Map}, \textsc{Verify}, and \textsc{Report}; the deterministic (LLM-free) Goal Checker either terminates, emits a structured critique that closes residual gaps, or escalates unmet conditions.
+
+Let $\Phi(R_t)$ count the unmet atomic sub-conditions of $\mathcal{G}$, and let $\mathcal{T}_c^H$ be the human-labeled High-risk theories of case $c$ that are retrievable---i.e., supported by at least one authority in $\mathcal{D}$ that is valid at $t_q$.
+The coverage loss at evidence threshold $\tau$ is
+\begin{equation}
+L_\tau(c) = \mathbf{1}\!\left[\exists\, T \in \mathcal{T}_c^H : T \notin R^*\right].
+\end{equation}
+
+\begin{observation}[Coverage-controlled stopping with escalation]
+Assume the set of risk items under consideration is fixed within a run (the Reporter may rewrite mitigation text but does not introduce new risk atoms that expand $\Phi$).
+Under monotone evidence caching and attainable progress, $\Phi(R_t)$ is non-increasing, reaches zero in at most $\Phi(R_0)$ successful progress steps when all atoms are attainable, and otherwise returns the residual atoms at $T_{\max}$.
+If $\hat{\tau}$ is selected on exchangeable calibration cases by conformal risk control, then the next-case omission risk satisfies $\mathbb{E}[L_{\hat{\tau}}] \le \alpha$.
+\end{observation}
+
+The first clause follows almost directly from the definitions.
+The second clause is a standard application of conformal risk control \citep{angelopoulos2024conformal} to $L_\tau$, which is monotone in $\tau$.
+It governs evidence coverage only, holds only for exchangeable cases---our temporal split violates it at $\alpha \in \{0.05, 0.10\}$ (\S\ref{sec:experiments})---and its tightness depends on the calibration-set size (150 cases).

@@ -1,0 +1,83 @@
+\section{Method: The VIGIL Framework}
+\label{sec:method}
+
+\subsection{Overview}
+\label{sec:overview}
+
+\sysname{} comprises two layers.
+A sensing pipeline discovers AI-litigation filings in CourtListener/RECAP and legal news and converts them into case records; this engineering infrastructure is documented in Appendix~C.
+The remainder of this section describes the evaluated NLP components: LegalRisk-RAG (\S\ref{sec:rag}), the goal-conditioned agentic loop (\S\ref{sec:agent}), the temporal precedent graph (\S\ref{sec:temporal}), and the \plre{} decision procedure (\S\ref{sec:plre}).
+
+\subsection{LegalRisk-RAG}
+\label{sec:rag}
+
+The LegalRisk-RAG pipeline adapts standard RAG to legal text in three respects.
+\textbf{Chunking} segments documents at logical structural boundaries---numbered claims, ``WHEREFORE'' clauses, section headings---rather than fixed token windows; each chunk retains a metadata header (case identifier, filing date, court level, section type).
+\textbf{Embedding:} we compared a dense retriever (text-embedding-3-large), RECAP-tuned LegalBERT, and a hybrid BM25 + neural re-ranker on a 200-pair development set; the hybrid performed best and is the default.
+\textbf{Dynamic context expansion (precedent chaining):} when a retrieved chunk references a prior case, the pipeline appends that opinion as secondary context and queries the temporal precedent graph for subsequent treatment, so that the Analyzer receives both semantic neighbors and validity metadata.
+
+\subsection{Goal-Conditioned Agentic Loop}
+\label{sec:agent}
+
+The four specialized agents and the central Goal Checker operate as in Algorithm~2 (Appendix).
+The Planner decomposes unmet sub-goals into ordered retrieval/analysis sub-tasks; the Retriever runs LegalRisk-RAG queries and reformulates via legal entity term expansion when $\mathcal{G}_{\mathrm{evidence}}$ is unmet; the Analyzer computes $\mathrm{RiskScore}(d_i, P, C)$, clusters evidence, and maps clusters to a risk taxonomy (Training Data, Output Reproduction, API Misuse, Model Weights); the Goal Checker evaluates $\mathcal{G}(R_t)$ after each pass and returns machine-readable residuals; the Planner converts these critiques into expanded entity/date/theory queries; and the Reporter assembles the risk register, per-risk evidence with citations, and mitigation guidance.
+
+\subsection{Temporal Precedent Graph}
+\label{sec:temporal}
+
+\sysname{}'s central component is a treatment layer that determines when each authority ceases to be operative; a simple retrieval-time gate then applies it.
+The layer is realized as a temporal precedent graph $P_t = (V, E_t)$.
+Each node $v \in V$ denotes a case, order, or doctrinal rule and stores jurisdiction, court level, issue tags, filing and decision dates, and a validity interval $[s_v, e_v)$, where $e_v$ remains open unless the node is later vacated, overruled, or superseded; material narrowing instead lowers its treatment weight.
+Directed edges encode treatment relations: \textsc{Cites}, \textsc{Distinguishes}, \textsc{Narrows}, \textsc{Supersedes}, and \textsc{Overrules}.
+Retrieval for a query at date $t_q$ first obtains semantically relevant candidates and then applies validity gating:
+\begin{equation}
+\label{eq:gate}
+\mathrm{score}(v, q, t_q) = \mathrm{sim}(v, q) \cdot \mathbf{1}[s_v \le t_q < e_v] \cdot w(\mathrm{treat}(v, t_q)).
+\end{equation}
+Here $w(\cdot)$ is a fixed monotone schedule: positively treated or still-open authorities receive weight 1.0; cautionary authorities receive 0.75; material \textsc{Narrows} receives 0.50; fully closed (overruled or superseded) authorities are already excluded by the indicator.
+The operator separates legal authority from topical similarity: a stale but lexically close case may still appear as context, yet it cannot support a risk decision without passing the validity check.
+Equation~\eqref{eq:gate} is therefore a constrained retrieval operator over $(q, t_q)$: a host retriever scores semantic relevance as usual, and \plre{} receives only support whose legal status remains operative at $t_q$.
+
+\paragraph{Why not a date filter?}
+Once intervals are known, Eq.~\eqref{eq:gate} is a metadata filter any vector store can apply.
+The difficulty is upstream and conceptual: $e_v$ is set by later documents that overrule, supersede, or narrow $v$, so it is not recoverable from $v$'s own filing date.
+A pure recency or document-date filter therefore cannot implement the same operator; the empirical question is whether treatment edges can be extracted reliably enough to use.
+Table~\ref{tab:treatment} addresses that question: negative-treatment micro-F1 is 0.80 on 600 gold spans and 0.81 against a commercial citator (Protocol~P2; missed-action rate 20.4\%; 3.8\% of held-out \plre{} pairs flip after citator correction).
+
+\begin{table}[t]
+\centering
+\begin{tabular}{lccc}
+\toprule
+Reference & P & R & F1 \\
+\midrule
+Gold spans ($n = 600$) & 0.84 & 0.77 & 0.80 \\
+Citator (Protocol P2) & 0.83 & 0.80 & 0.81 \\
+\bottomrule
+\end{tabular}
+\caption{Treatment-layer validation (neg.-treatment micro over \textsc{Overrules}/\textsc{Supersedes}/material \textsc{Narrows}).}
+\label{tab:treatment}
+\end{table}
+
+\paragraph{Graph construction.}
+Nodes are induced from CourtListener/RECAP with intervals initialized to $[s_v, \infty)$.
+Edges are extracted by a citation-span detector plus an LLM classifier (GPT-4o, $T = 0$); interval-closing edges must be anchored to a detected span, decision date, and source document, and gold evaluation uses spans held out from prompts.
+A confirmed \textsc{Overrules}/\textsc{Supersedes} edge at $t$ sets $e_v \leftarrow t$; material \textsc{Narrows} sets $w = 0.50$ from $t$.
+The graph has 1{,}812 nodes and 4{,}760 edges.
+Low-confidence negative-treatment edges are routed to human review rather than auto-closing intervals.
+
+\subsection{PLRE Decision Procedure}
+\label{sec:plre}
+
+We cast product-litigation alignment as a risk-entailment task.
+Given a product spec $P$ with attributes $\{p_1, \ldots, p_m\}$, a legal-risk theory $T_j$, and a query date $t_q$, \plre{} predicts
+\begin{equation}
+y_{ij} = \mathbf{1}[P, p_i, P_{t_q} \models T_j].
+\end{equation}
+Unlike symmetric similarity, \plre{} is directional.
+A pair $(p_i, T_j)$ is promoted to the risk register only when (i)~the entailment score exceeds the validation-set threshold, (ii)~the top supporting precedents remain valid at $t_q$, and (iii)~the report includes mitigation text grounded in at least three cited authorities when available.
+
+\plre{} gold labels are constructed from anonymized product-attribute cards and docket-grounded theory cards.
+Annotators judge a directional pair as positive only when the product attribute, legal theory, query date, and at least one valid supporting authority jointly establish exposure; negative pairs comprise ordinary mismatches and stale-authority distractors.
+Critically, the validity judgment encoded in the labels is produced by annotators reading docket and opinion text, independently of \sysname{}'s automatically extracted treatment graph, so the gate must recover label validity rather than presuppose it.
+Product archetypes are tracked in the split manifest, and year and litigation type are stratified to reduce temporal and topical leakage.
+The formulation is system-agnostic: \plre{} is directional entailment subject to an exogenous, time-indexed support constraint.
