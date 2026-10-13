@@ -23,9 +23,9 @@ For \sysname{} and baselines B2--B5 the training split is used only to select fe
 Few-shot exemplars and the entailment threshold use only train/validation; all reported metrics use the 372 held-out test pairs.
 
 \paragraph{Baselines.}
-We compare \sysname{} against five risk-classification baselines: B1 Additive-only Rule; B2 Single-Pass LLM; B3 RAG-only; B4 Single-Agent (\sysname{} without the goal-conditioned loop); and B5 Iteration-Matched Self-Refinement (Reflexion-style, matched on \sysname{}'s mean budget of 2.4 iterations).
+We compare \sysname{} against five risk-classification baselines: B1 Additive-only Rule; B2 Single-Pass LLM; B3 RAG-only; B4 Single-Agent (\sysname{} without the goal-conditioned loop); and B5 Iteration-Matched Self-Refinement (Reflexion-style~\citep{shinn2023reflexion}, matched on \sysname{}'s mean budget of 2.4 iterations).
 B2--B5 share the same GPT-4o backbone and decoding settings as \sysname{}.
-For \plre{} we further include non-VIGIL baselines that isolate suspected confounds: product--theory cosine, LegalBERT product--theory NLI, COLIEE-style precedent retrieval without interval closure, and \sysname{} without temporal gating.
+For \plre{} we further include non-VIGIL baselines that isolate suspected confounds: product--theory cosine, LegalBERT product--theory NLI, COLIEE-style~\citep{rabelo2022coliee} precedent retrieval without interval closure, and \sysname{} without temporal gating.
 
 \paragraph{Automatic evaluation.}
 All reported automatic metrics freeze the treatment graph produced by the extractor; low-confidence edges are not human-reviewed at evaluation time.
@@ -97,9 +97,9 @@ Stale-cite measures citations to already-closed precedent ($t_q \ge e_v$).}
 \label{tab:ablation}
 \end{table}
 
-Table~6 measures how negative-treatment errors propagate.
+Negative-treatment error propagation was measured by substituting gold spans and by additional masking of extracted edges.
 The extractor row operates at the observed miss rate ($\approx$23\%, from 0.77 recall) and costs 2 \plre{} F1 points relative to gold-span substitution.
-Additional masking of extracted negative-treatment edges further degrades performance, confirming that the gate's benefit depends on treatment-edge quality.
+Additional masking of extracted negative-treatment edges further degrades performance, confirming that the gate's benefit depends on treatment-edge quality (full numbers in the supplementary material).
 
 \subsection{RQ4: Product--Litigation Risk Entailment}
 \label{sec:rq4}
@@ -108,7 +108,7 @@ Additional masking of extracted negative-treatment edges further degrades perfor
 Table~\ref{tab:plre}: VIGIL Full reaches 0.78 F1 ($+$0.06 vs.\ no-gate; $+$0.05--0.13 versus non-VIGIL product--theory and legal-NLI baselines).
 VIGIL without gating (0.72) sits slightly below RAG-only (0.73), indicating that the agentic loop without a validity filter can reinforce stale but lexically close precedent; the gate is the component that improves \plre{}.
 Gains partly reflect rejection of stale distractors (19.7\% of pairs).
-We also report performance on the non-distractor subset to address circularity concerns; the gate remains beneficial among still-open authorities (details in Appendix).
+Gains partly reflect rejection of stale distractors; a non-distractor subset analysis is provided in the released evaluation scripts to address circularity concerns.
 Primary claims rest on the 372 held-out pairs.
 
 \begin{table}[t]
@@ -135,4 +135,4 @@ Held-out test pairs only.}
 
 Calibrating the evidence threshold to $\alpha \in \{0.05, 0.10, 0.20\}$ yields omission risk 0.043/0.082/0.171 in random splits.
 Under a temporal split (2023--24 $\to$ 2025) the achieved risk rises to 0.061/0.113/0.196, exceeding the target at $\alpha = 0.05$ and 0.10, which motivates rolling re-calibration.
-An open-weights Llama-3.1-70B + bge stack runs unchanged, with full-test-set macro F1 $0.81 \to 0.76$ and 2.4 vs.\ 2.6 iterations.
+An open-weights Llama-3.1-70B~\citep{touvron2023llama} + bge~\citep{xiao2024cpack} stack runs unchanged, with full-test-set macro F1 $0.81 \to 0.76$ and 2.4 vs.\ 2.6 iterations.

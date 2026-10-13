@@ -11,7 +11,7 @@ The contribution is the validated gate construction and its downstream effect un
 Instance-level predictions necessary for the main automatic metrics (stale-citation rate, decision-flip under citator correction, masking ablations) were retained and are released with the evaluation scripts.
 Paired bootstrap confidence intervals on the primary \plre{} comparison (gate vs.\ no-gate) can therefore be recomputed by any reader.
 In the present submission we report point estimates together with the operational magnitudes that matter for the mechanistic claim.
-Aggregate mean$\pm$std over five random seeds appear in the appendix as run-level summaries.
+Aggregate mean$\pm$std over five random seeds appear in the supplementary material as run-level summaries.
 
 \paragraph{Baselines not evaluated on \plre.}
 B5 (iteration-matched self-refinement), token-matched refinement, pure document-date filters, and learned temporal re-rankers were not run on the \plre{} task.
@@ -21,13 +21,13 @@ The no-gate ablation already isolates the contribution of the validity indicator
 
 \paragraph{Distractor composition.}
 Stale-authority distractors constitute 19.7\% of \plre{} pairs by design: they test whether the gate removes closed support that lexical retrieval would otherwise promote.
-To address the concern that gains are driven solely by distractor rejection, we also examined the non-distractor subset.
-The gate remains beneficial for ranking among still-open authorities; full numbers appear in the released evaluation scripts.
+Gains partly reflect rejection of these distractors; a non-distractor subset analysis is left to the released evaluation scripts and future work to fully isolate ranking among still-open authorities.
 
 \paragraph{Split structure.}
 Case and \plre{} splits are stratified by year and litigation type (or product archetype), not by dispute identity.
 Related dockets of one dispute can therefore cross the train/test boundary.
 Primary \plre{} metrics use held-out pairs only, with few-shot exemplars and thresholds taken from train/validation, but a dispute-blocked re-split remains desirable and is listed as future work.
+With only five product archetypes, leave-one-archetype-out evaluation would further stress generalization and is also left to future work.
 
 \paragraph{Extractor quality, transfer, and raters.}
 Negative-treatment recall is 0.77 on gold spans (citator missed-action rate 20.4\%).
@@ -44,4 +44,4 @@ That version string has since been retired by Azure OpenAI; bit-identical re-run
 Because many underlying opinions pre-date the knowledge cutoff of the GPT-4o snapshot, we cannot rule out that the model had already seen portions of the corpus during pre-training; the open-weights run provides a partial check against this confound.
 
 \paragraph{Future work.}
-Larger human adjudication, paired-bootstrap CIs on the main tables, non-distractor and dispute-blocked audits, B5/token-matched and temporal re-ranker controls on \plre{}, and broader jurisdictional coverage.
+Larger human adjudication, paired-bootstrap CIs on the main tables, non-distractor and dispute-blocked audits, B5/token-matched and temporal re-ranker controls on \plre{}, leave-one-archetype-out evaluation, and broader jurisdictional coverage.

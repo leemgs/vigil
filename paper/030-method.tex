@@ -5,7 +5,7 @@
 \label{sec:overview}
 
 \sysname{} comprises two layers.
-A sensing pipeline discovers AI-litigation filings in CourtListener/RECAP and legal news and converts them into case records; this engineering infrastructure is documented in Appendix~C.
+A sensing pipeline discovers AI-litigation filings in CourtListener/RECAP~\citep{courtlistener2023} and legal news and converts them into case records; this engineering infrastructure is documented in Appendix~C.
 The remainder of this section describes the evaluated NLP components: LegalRisk-RAG (\S\ref{sec:rag}), the goal-conditioned agentic loop (\S\ref{sec:agent}), the temporal precedent graph (\S\ref{sec:temporal}), and the \plre{} decision procedure (\S\ref{sec:plre}).
 
 \subsection{LegalRisk-RAG}
@@ -13,13 +13,13 @@ The remainder of this section describes the evaluated NLP components: LegalRisk-
 
 The LegalRisk-RAG pipeline adapts standard RAG to legal text in three respects.
 \textbf{Chunking} segments documents at logical structural boundaries---numbered claims, ``WHEREFORE'' clauses, section headings---rather than fixed token windows; each chunk retains a metadata header (case identifier, filing date, court level, section type).
-\textbf{Embedding:} we compared a dense retriever (text-embedding-3-large), RECAP-tuned LegalBERT, and a hybrid BM25 + neural re-ranker on a 200-pair development set; the hybrid performed best and is the default.
+\textbf{Embedding:} we compared a dense retriever (text-embedding-3-large), RECAP-tuned LegalBERT~\citep{chalkidis2020legalbert}, and a hybrid BM25~\citep{robertson2009bm25} + neural re-ranker on a 200-pair development set; the hybrid performed best and is the default.
 \textbf{Dynamic context expansion (precedent chaining):} when a retrieved chunk references a prior case, the pipeline appends that opinion as secondary context and queries the temporal precedent graph for subsequent treatment, so that the Analyzer receives both semantic neighbors and validity metadata.
 
 \subsection{Goal-Conditioned Agentic Loop}
 \label{sec:agent}
 
-The four specialized agents and the central Goal Checker operate as in Algorithm~2 (Appendix).
+The four specialized agents and the central Goal Checker operate as described in the supplementary material.
 The Planner decomposes unmet sub-goals into ordered retrieval/analysis sub-tasks; the Retriever runs LegalRisk-RAG queries and reformulates via legal entity term expansion when $\mathcal{G}_{\mathrm{evidence}}$ is unmet; the Analyzer computes $\mathrm{RiskScore}(d_i, P, C)$, clusters evidence, and maps clusters to a risk taxonomy (Training Data, Output Reproduction, API Misuse, Model Weights); the Goal Checker evaluates $\mathcal{G}(R_t)$ after each pass and returns machine-readable residuals; the Planner converts these critiques into expanded entity/date/theory queries; and the Reporter assembles the risk register, per-risk evidence with citations, and mitigation guidance.
 
 \subsection{Temporal Precedent Graph}

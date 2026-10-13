@@ -1,18 +1,26 @@
 \section{Related Work}
 \label{sec:related}
 
-Legal NLP has studied judgment prediction, statutory reasoning, legal benchmarks, case retrieval and entailment, and summarization, often with domain-adapted encoders.
-Audits show that LLMs and commercial legal RAG tools still hallucinate.
-Prior work also studies overruling detection as a classification task over case text; we instead extract treatment edges to build time-indexed validity intervals and apply them as a retrieval gate.
+\paragraph{Legal NLP and domain models.}
+Legal NLP has studied judgment prediction~\citep{chalkidis2019neural}, statutory reasoning~\citep{holzenberger2020sara}, legal benchmarks such as LexGLUE~\citep{chalkidis2022lexglue} and LegalBench~\citep{guha2023legalbench}, case retrieval and entailment~\citep{rabelo2022coliee}, and summarization~\citep{huang2021efficient,manor2019plain}, often with domain-adapted encoders including LEGAL-BERT~\citep{chalkidis2020legalbert}, CaseHOLD~\citep{zheng2021legalbert}, and Lawformer~\citep{xiao2021lawformer}.
+Audits show that LLMs and commercial legal RAG tools still hallucinate~\citep{dahl2024hallucinating,magesh2024hallucination}.
+Prior work also studies overruling detection as a classification task over case text~\citep{zheng2021legalbert}; we instead extract treatment edges to build time-indexed validity intervals and apply them as a retrieval gate.
 These lines of work take legal text as the premise, treat the corpus as static, and do not test whether retrieved authority remained operative at a given date.
 \plre{} changes the inference unit: product attributes are mapped to legal-risk theories in a directional, product-conditioned, and temporal manner.
 
-Time-sensitive QA conditions answers on the moment a question is asked; temporal IR uses document time as a ranking signal.
+\paragraph{Time-sensitive QA and temporal IR.}
+Time-sensitive QA conditions answers on the moment a question is asked~\citep{chen2021timeqa,zhang2021situatedqa,liska2022streamingqa,kasai2023realtimeqa}; temporal IR uses document time as a ranking signal~\citep{campos2014temporal,dhingra2022timeaware}.
 Both treat time as a property of facts or queries.
 In \plre{}, time enters through supersession: a later document alters the evidential status of an earlier one.
-Commercial citators track negative treatment; citation-network analysis and edge labeling characterize the underlying graph.
+Commercial citators such as Shepard's~\citep{shepards2024} and KeyCite~\citep{keycite2024} track negative treatment; citation-network analysis and edge labeling characterize the underlying graph~\citep{fowler2007network,sadeghian2018semantic}.
 \sysname{} attaches validity intervals to extracted treatment edges and applies them as a retrieval-time gate.
 
-RAG typically executes a fixed retrieval plan before generation; work on knowledge conflicts and outdated parametric knowledge shows that generators may prefer stale but familiar evidence unless retrieval is constrained.
-Agent frameworks benefit from iterative tool use yet stop when the model itself deems its answer satisfactory.
-\sysname{} ties stopping to an externally inspectable predicate over evidence support and mitigation coverage, and employs conformal risk control narrowly for evidence omission rather than legal correctness.
+\paragraph{RAG, knowledge conflicts, and agents.}
+RAG typically executes a fixed retrieval plan before generation~\citep{lewis2020retrieval,karpukhin2020dense,gao2023retrieval}; work on knowledge conflicts and outdated parametric knowledge shows that generators may prefer stale but familiar evidence unless retrieval is constrained~\citep{longpre2021entity,chen2022rich,xie2024adaptive}.
+Agent frameworks benefit from iterative tool use yet stop when the model itself deems its answer satisfactory~\citep{yao2022react,shinn2023reflexion,wei2022chain,park2023generative,wang2024voyager,wang2024multiagent}.
+\sysname{} ties stopping to an externally inspectable predicate over evidence support and mitigation coverage, and employs conformal risk control~\citep{angelopoulos2023conformalrisk,angelopoulos2021ltt,geifman2017selective} narrowly for evidence omission rather than legal correctness.
+
+\paragraph{Foundation models, copyright, and fair use.}
+Foundation-model training and output raise copyright and fair-use questions that motivate product-facing risk mapping~\citep{henderson2023foundation,levendowski2018copyright,grimmelmann2015copyright,bommasani2021opportunities}.
+High-profile suits such as \textit{Getty Images v.\ Stability AI}~\citep{getty_stability_2023}, \textit{New York Times v.\ Microsoft}~\citep{nyt_openai_2023}, and \textit{Kadrey v.\ Meta}~\citep{kadrey_meta_2023} illustrate the range of theories from DMCA §1202 to direct infringement and vicarious liability.
+Infrastructure resources such as CourtListener~\citep{courtlistener2023} and the Caselaw Access Project~\citep{cap2024} enable public-corpus construction of treatment layers that commercial citators already maintain privately.
