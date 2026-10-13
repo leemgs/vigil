@@ -41,9 +41,12 @@ These triage numbers are secondary to \plre{} and are not significance-tested.
 
 \begin{table}[t]
 \centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{adjustbox}{max width=\columnwidth}
 \begin{tabular}{lcccc}
 \toprule
-System & \multicolumn{3}{c}{Human-adjudicated} & Full \\
+System & \multicolumn{3}{c}{Human-adj.} & Full \\
 \cmidrule(lr){2-4} \cmidrule(lr){5-5}
  & F1 & P & R & F1 \\
 \midrule
@@ -55,6 +58,7 @@ B5 Self-Refinement & 0.75 & 0.75 & 0.75 & 0.77 \\
 VIGIL Full & \textbf{0.79} & \textbf{0.79} & \textbf{0.80} & \textbf{0.81} \\
 \bottomrule
 \end{tabular}
+\end{adjustbox}
 \caption{Macro severity-label agreement.
 Human-adjudicated subset ($n = 82$; primary).
 Full: held-out test including retained pre-labels.}
@@ -82,18 +86,22 @@ This controlled degradation constitutes the paper's main methodological result.
 
 \begin{table}[t]
 \centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{adjustbox}{max width=\columnwidth}
 \begin{tabular}{lccc}
 \toprule
-Variant & \plre{} F1 & $\Delta$F1 & Stale-cite \% \\
+Variant & F1 & $\Delta$F1 & Stale \% \\
 \midrule
-VIGIL (Full: gating + weighting) & 0.78 & --- & 4.1 \\
+VIGIL Full (gate + weight) & 0.78 & --- & 4.1 \\
 $-$ treatment weighting $w(\cdot)$ & 0.75 & $-0.03$ & 7.8 \\
-$-$ interval gating (flat similarity) & 0.72 & $-0.06$ & 12.7 \\
+$-$ interval gating (flat sim.) & 0.72 & $-0.06$ & 12.7 \\
 \bottomrule
 \end{tabular}
+\end{adjustbox}
 \caption{Temporal precedent-graph ablation (main claim).
 Both mechanisms of Eq.~\eqref{eq:gate} are removed in sequence; the bottom row recovers flat semantic similarity.
-Stale-cite measures citations to already-closed precedent ($t_q \ge e_v$).}
+F1 is \plre{} F1; Stale is the stale-citation rate, i.e., citations to already-closed precedent ($t_q \ge e_v$).}
 \label{tab:ablation}
 \end{table}
 
@@ -112,19 +120,23 @@ Primary claims rest on the 372 held-out pairs.
 
 \begin{table}[t]
 \centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{adjustbox}{max width=\columnwidth}
 \begin{tabular}{lccc}
 \toprule
-System & Precision & Recall & F1 \\
+System & P & R & F1 \\
 \midrule
 Product--theory cosine & 0.64 & 0.66 & 0.65 \\
-LegalBERT product--theory NLI & 0.69 & 0.68 & 0.68 \\
-COLIEE-style retrieval, no gate & 0.71 & 0.70 & 0.70 \\
+LegalBERT NLI & 0.69 & 0.68 & 0.68 \\
+COLIEE-style, no gate & 0.71 & 0.70 & 0.70 \\
 RAG-only generation & 0.73 & 0.74 & 0.73 \\
-VIGIL without temporal gating & 0.72 & 0.73 & 0.72 \\
+VIGIL w/o gating & 0.72 & 0.73 & 0.72 \\
 VIGIL Full & \textbf{0.77} & \textbf{0.80} & \textbf{0.78} \\
 \bottomrule
 \end{tabular}
-\caption{\plre{} comparison against external legal-NLI and precedent-retrieval baselines.
+\end{adjustbox}
+\caption{\plre{} comparison against external legal-NLI and precedent-retrieval baselines (LegalBERT NLI: product--theory NLI).
 Held-out test pairs only.}
 \label{tab:plre}
 \end{table}

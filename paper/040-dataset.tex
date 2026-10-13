@@ -18,6 +18,8 @@ The top-three defendants account for 41.3\% of dockets, reflecting the concentra
 
 \begin{table}[t]
 \centering
+\small
+\begin{adjustbox}{max width=\columnwidth}
 \begin{tabular}{lc}
 \toprule
 Attribute & Value \\
@@ -27,10 +29,12 @@ Total documents & 8{,}934 \\
 Coverage period & 2020--2025 \\
 Unique defendants & 43 \\
 Risk labels & 3 (High/Med/Low) \\
-Status dist.\ (Init/Active/Settled/Dismissed) & 298/695/148/106 \\
+Status: Initial / Active & 298 / 695 \\
+Status: Settled / Dismissed & 148 / 106 \\
 Product-mapping GT cases & 312 \\
 \bottomrule
 \end{tabular}
+\end{adjustbox}
 \caption{VIGIL-Dataset summary statistics.
 Status counts sum to 1{,}247.}
 \label{tab:dataset}
@@ -39,7 +43,7 @@ Status counts sum to 1{,}247.}
 \subsection{Annotation and Availability}
 \label{sec:annotation}
 
-An automated pre-labeler first assigns a triage score using the additive matrix in Table~A.2.
+An automated pre-labeler first assigns a triage score using an additive scoring matrix (supplementary material).
 Three legal research specialists then independently review a stratified sample of 400 cases under a fixed guideline.
 During adjudication, annotators see docket text, product attributes, candidate theory cards, and query dates, but neither system identity nor the pre-labeler's score.
 The remaining 847 cases retain automated pre-labels; a 5\% spot-check yields 91\% agreement with at least one specialist.

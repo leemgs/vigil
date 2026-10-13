@@ -32,7 +32,10 @@ Directed edges encode treatment relations: \textsc{Cites}, \textsc{Distinguishes
 Retrieval for a query at date $t_q$ first obtains semantically relevant candidates and then applies validity gating:
 \begin{equation}
 \label{eq:gate}
-\mathrm{score}(v, q, t_q) = \mathrm{sim}(v, q) \cdot \mathbf{1}[s_v \le t_q < e_v] \cdot w(\mathrm{treat}(v, t_q)).
+\begin{aligned}
+\mathrm{score}(v, q, t_q) ={}& \mathrm{sim}(v, q) \cdot \mathbf{1}[s_v \le t_q < e_v] \\
+&\cdot w(\mathrm{treat}(v, t_q)).
+\end{aligned}
 \end{equation}
 Here $w(\cdot)$ is a fixed monotone schedule: positively treated or still-open authorities receive weight 1.0; cautionary authorities receive 0.75; material \textsc{Narrows} receives 0.50; fully closed (overruled or superseded) authorities are already excluded by the indicator.
 The operator separates legal authority from topical similarity: a stale but lexically close case may still appear as context, yet it cannot support a risk decision without passing the validity check.
@@ -46,6 +49,8 @@ Table~\ref{tab:treatment} addresses that question: negative-treatment micro-F1 i
 
 \begin{table}[t]
 \centering
+\small
+\begin{adjustbox}{max width=\columnwidth}
 \begin{tabular}{lccc}
 \toprule
 Reference & P & R & F1 \\
@@ -54,6 +59,7 @@ Gold spans ($n = 600$) & 0.84 & 0.77 & 0.80 \\
 Citator (Protocol P2) & 0.83 & 0.80 & 0.81 \\
 \bottomrule
 \end{tabular}
+\end{adjustbox}
 \caption{Treatment-layer validation (neg.-treatment micro over \textsc{Overrules}/\textsc{Supersedes}/material \textsc{Narrows}).}
 \label{tab:treatment}
 \end{table}
