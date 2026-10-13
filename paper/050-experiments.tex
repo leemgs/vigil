@@ -67,7 +67,7 @@ Full: held-out test including retained pre-labels.}
 Two blinded specialists rated \sysname{} and B2--B5 reports on 15 cases (75 reports) along Accuracy, Completeness, Actionability, Evidence Sufficiency, and Clarity (5-point scales).
 Mean scores were highest for \sysname{} on Evidence Sufficiency (4.4).
 Mean inter-rater $\kappa = 0.68$.
-RQ2 is supporting evidence only ($n = 15$); we report system means in Appendix~F.4 and treat pairwise tests as exploratory.
+RQ2 is supporting evidence only ($n = 15$); we report system means in the supplementary material and treat pairwise tests as exploratory.
 
 \subsection{RQ3: Agentic Loop and Temporal Graph Ablations}
 \label{sec:rq3}
@@ -107,8 +107,7 @@ Additional masking of extracted negative-treatment edges further degrades perfor
 \plre{} uses anonymized product-attribute cards (five archetypes) paired with docket-grounded theory cards across 312 product-mapping cases (1{,}856 pairs; 28.4\% positive; 19.7\% stale-authority distractors; $\kappa = 0.71$).
 Table~\ref{tab:plre}: VIGIL Full reaches 0.78 F1 ($+$0.06 vs.\ no-gate; $+$0.05--0.13 versus non-VIGIL product--theory and legal-NLI baselines).
 VIGIL without gating (0.72) sits slightly below RAG-only (0.73), indicating that the agentic loop without a validity filter can reinforce stale but lexically close precedent; the gate is the component that improves \plre{}.
-Gains partly reflect rejection of stale distractors (19.7\% of pairs).
-Gains partly reflect rejection of stale distractors; a non-distractor subset analysis is provided in the released evaluation scripts to address circularity concerns.
+Gains partly reflect rejection of stale distractors (19.7\% of pairs); a non-distractor subset analysis is provided in the released evaluation scripts to address circularity concerns.
 Primary claims rest on the 372 held-out pairs.
 
 \begin{table}[t]
@@ -135,4 +134,4 @@ Held-out test pairs only.}
 
 Calibrating the evidence threshold to $\alpha \in \{0.05, 0.10, 0.20\}$ yields omission risk 0.043/0.082/0.171 in random splits.
 Under a temporal split (2023--24 $\to$ 2025) the achieved risk rises to 0.061/0.113/0.196, exceeding the target at $\alpha = 0.05$ and 0.10, which motivates rolling re-calibration.
-An open-weights Llama-3.1-70B~\citep{touvron2023llama} + bge~\citep{xiao2024cpack} stack runs unchanged, with full-test-set macro F1 $0.81 \to 0.76$ and 2.4 vs.\ 2.6 iterations.
+An open-weights Llama-3.1-70B~\citep{grattafiori2024llama3} + bge~\citep{xiao2024cpack} stack runs unchanged, with full-test-set macro F1 $0.81 \to 0.76$ and 2.4 vs.\ 2.6 iterations.
