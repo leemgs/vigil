@@ -1,7 +1,0 @@
-PWD /work/github-leemgs/vigil/paper
-INPUT /var/lib/texmf/web2c/luahbtex/lualatex.fmt
-INPUT ./001_title.tex
-OUTPUT 001_title.log
-INPUT /usr/share/texlive/texmf-dist/tex/latex/tex-ini-files/lualatexquotejobname.lua
-INPUT /usr/share/texlive/texmf-dist/tex/latex/base/ltluatex.lua
-INPUT /usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3.lua

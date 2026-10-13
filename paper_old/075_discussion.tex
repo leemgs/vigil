@@ -1,8 +1,0 @@
-\section{Discussion}
-\label{sec:discussion}
-
-The central result is that a validated treatment layer, applied as a hard retrieval gate, changes PLRE behavior: on the held-out set, stale citations fall from 12.7\% to 4.1\% and F1 rises by 0.06 relative to the identical pipeline without gating (Table~\ref{tab:temporal_ablation}). Independent checks place negative-treatment micro-F1 at 0.80 (gold spans) and 0.81 (commercial citator; Table~\ref{tab:edge_summary}). These figures are point estimates; we treat them as evidence for the mechanism, not as significance-tested superiority.
-
-Two controls bound the claim. First, without the gate, the agentic loop alone does not help on PLRE (0.72 vs.\ RAG-only 0.73), so gains are not explained by extra test-time compute. Second, a surface-form heuristic recovers many explicit \textsc{overrules}/\textsc{supersedes} mentions but almost no material narrowing (Appendix~\ref{app:edge_extraction}), and citator-oracle intervals flip only 3.8\% of held-out pairs---the extracted layer already tracks the commercial reference for downstream decisions. We do not evaluate B5, pure date filters, or learned temporal re-rankers on PLRE; a date filter cannot recover supersession end points from later opinions, which is the extraction problem this work targets.
-
-On severity triage ($n{=}82$), VIGIL leads iteration-matched B5 by a small margin (0.79 vs.\ 0.75); that comparison is secondary to PLRE. Remaining limits---uncertainty quantification, non-distractor breakdowns, dispute-blocked splits, and broader baselines---are listed after the Conclusion.
