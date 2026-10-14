@@ -29,7 +29,7 @@ Rishi Bommasani, Drew~A. Hudson, Ehsan Adeli, Russ Altman, et~al. 2021.
 Ricardo Campos, Ga{\"e}l Dias, Al{\'i}pio~M. Jorge, and Adam Jatowt. 2014.
 \newblock \href {https://doi.org/10.1145/2619088} {Survey of temporal
   information retrieval and related applications}.
-\newblock \emph{ACM Computing Surveys}, 47(2):15.
+\newblock \emph{ACM Computing Surveys}, 47(2):15:1--15:41.
 
 \bibitem[{Chalkidis et~al.(2019)Chalkidis, Androutsopoulos, and
   Aletras}]{chalkidis2019neural}
@@ -118,11 +118,11 @@ Yonatan Geifman and Ran El-Yaniv. 2017.
 \newblock In \emph{Advances in Neural Information Processing Systems
   (NeurIPS)}, volume~30.
 
-\bibitem[{{Getty Images, Inc.}(2023)}]{getty_stability_2023}
-{Getty Images, Inc.} 2023.
+\bibitem[{{Getty Images (US), Inc.}(2023)}]{getty_stability_2023}
+{Getty Images (US), Inc.} 2023.
 \newblock \href
   {https://www.courtlistener.com/docket/66950312/getty-images-us-inc-v-stability-ai-inc/}
-  {{Getty Images, Inc. v. Stability AI, Inc.}, case no. 1:23-cv-00135}.
+  {{Getty Images (US), Inc. v. Stability AI, Inc.}, case no. 1:23-cv-00135}.
 \newblock U.S. District Court, D.~Delaware.
 
 \bibitem[{Grattafiori et~al.(2024)Grattafiori, Dubey, Jauhri
@@ -152,9 +152,10 @@ Neel Guha, Julian Nyarko, Daniel~E. Ho, Christopher R{\'e}, et~al. 2023.
 \newblock \url{https://case.law}.
 \newblock U.S. Reports volumes 1--572, CC0.
 
-\bibitem[{Henderson et~al.(2023)Henderson, Li, Lemley, Jurafsky, and
-  Ho}]{henderson2023foundation}
-Peter Henderson, Xuechen Li, Mark Lemley, Dan Jurafsky, and Daniel~E. Ho. 2023.
+\bibitem[{Henderson et~al.(2023)Henderson, Li, Jurafsky, Hashimoto, Lemley, and
+  Liang}]{henderson2023foundation}
+Peter Henderson, Xuechen Li, Dan Jurafsky, Tatsunori Hashimoto, Mark~A. Lemley,
+  and Percy Liang. 2023.
 \newblock \href {https://www.jmlr.org/papers/v24/23-0569.html} {Foundation
   models and fair use}.
 \newblock \emph{Journal of Machine Learning Research}, 24(400):1--79.
@@ -174,7 +175,7 @@ Luyang Huang, Shuyang Cao, Nikolaus Parulian, Heng Ji, and Lu~Wang. 2021.
   attentions for long document summarization}.
 \newblock In \emph{Proceedings of the 2021 Conference of the North American
   Chapter of the Association for Computational Linguistics (NAACL-HLT)}, pages
-  1419--1428. Association for Computational Linguistics.
+  1419--1436. Association for Computational Linguistics.
 
 \bibitem[{Kadrey et~al.(2023)}]{kadrey_meta_2023}
 Richard Kadrey et~al. 2023.
@@ -201,7 +202,7 @@ Jungo Kasai, Keisuke Sakaguchi, Yoichi Takahashi, Ronan Le~Bras, Akari Asai,
 
 \bibitem[{Levendowski(2018)}]{levendowski2018copyright}
 Amanda Levendowski. 2018.
-\newblock \href {https://digitalcommons.law.uw.edu/wlr/vol93/iss2/3/} {How
+\newblock \href {https://digitalcommons.law.uw.edu/wlr/vol93/iss2/2/} {How
   copyright law can fix artificial intelligence's implicit bias problem}.
 \newblock \emph{Washington Law Review}, 93(2):579--630.
 
@@ -219,8 +220,7 @@ Patrick Lewis, Ethan Perez, Aleksandra Piktus, Fabio Petroni, Vladimir
 
 \bibitem[{{LexisNexis}(2024)}]{shepards2024}
 {LexisNexis}. 2024.
-\newblock \href
-  {https://www.lexisnexis.com/en-us/products/shepards-citation-service.page}
+\newblock \href {https://www.lexisnexis.com/en-us/products/lexis/shepards.page}
   {{Shepard's Citation Service}}.
 \newblock Online legal research service documentation.
 
@@ -285,7 +285,7 @@ Stephen Robertson and Hugo Zaragoza. 2009.
   and Pfeifer}]{sadeghian2018semantic}
 Ali Sadeghian, Laksshman Sundaram, Daisy~Zhe Wang, William~F. Hamilton, Karl
   Branting, and Craig Pfeifer. 2018.
-\newblock Semantic edge labeling over legal citation graphs.
+\newblock Automatic semantic edge labeling over legal citation graphs.
 \newblock \emph{Artificial Intelligence and Law}, 26(2):127--144.
 
 \bibitem[{Shinn et~al.(2023)Shinn, Cassano, Gopinath, Narasimhan, and
@@ -308,9 +308,8 @@ Noah Shinn, Federico Cassano, Ashwin Gopinath, Karthik Narasimhan, and Shunyu
 
 \bibitem[{{Thomson Reuters}(2024)}]{keycite2024}
 {Thomson Reuters}. 2024.
-\newblock \href
-  {https://legal.thomsonreuters.com/en/products/westlaw-precision/keycite}
-  {{KeyCite on Westlaw Precision}}.
+\newblock \href {https://legal.thomsonreuters.com/en/products/westlaw/keycite}
+  {{KeyCite}}.
 \newblock Online legal research service documentation.
 
 \bibitem[{Wang et~al.(2024{\natexlab{a}})Wang, Xie, Jiang, Mandlekar, Xiao,
@@ -353,7 +352,7 @@ Shitao Xiao, Zheng Liu, Peitian Zhang, Niklas Muennighoff, Defu Lian, and
   Jian-Yun Nie. 2024.
 \newblock {C-Pack}: Packed resources for general {Chinese} embeddings.
 \newblock In \emph{Proceedings of the 47th International ACM SIGIR Conference
-  on Research and Development in Information Retrieval}.
+  on Research and Development in Information Retrieval}, pages 641--649.
 
 \bibitem[{Xie et~al.(2024)Xie, Zhang, Chen, Lou, and Su}]{xie2024adaptive}
 Jian Xie, Kai Zhang, Jiangjie Chen, Renze Lou, and Yu~Su. 2024.
@@ -385,7 +384,7 @@ Lucia Zheng, Neel Guha, Brandon~R. Anderson, Peter Henderson, and Daniel~E. Ho.
   2021.
 \newblock \href {https://dl.acm.org/doi/10.1145/3462757.3466088} {When does
   pretraining help? {A}ssessing self-supervised learning for law and the
-  {CaseHOLD} dataset}.
+  {CaseHOLD} dataset of 53,000+ legal holdings}.
 \newblock In \emph{Proceedings of the Eighteenth International Conference on
   Artificial Intelligence and Law (ICAIL)}, pages 159--168. ACM.
 

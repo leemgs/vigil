@@ -11,42 +11,42 @@ Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Database file #1: references.bib
 You've used 49 entries,
             3782 wiz_defined-function locations,
-            1029 strings with 18641 characters,
-and the built_in function-call counts, 42222 in all, are:
-= -- 3587
-> -- 2352
-< -- 35
-+ -- 955
-- -- 709
-* -- 2893
-:= -- 6179
+            1031 strings with 18691 characters,
+and the built_in function-call counts, 42566 in all, are:
+= -- 3628
+> -- 2361
+< -- 36
++ -- 959
+- -- 712
+* -- 2919
+:= -- 6214
 add.period$ -- 205
 call.type$ -- 49
-change.case$ -- 530
+change.case$ -- 531
 chr.to.int$ -- 52
 cite$ -- 49
-duplicate$ -- 2454
-empty$ -- 2884
-format.name$ -- 848
-if$ -- 9211
+duplicate$ -- 2468
+empty$ -- 2908
+format.name$ -- 851
+if$ -- 9292
 int.to.chr$ -- 2
 int.to.str$ -- 1
-missing$ -- 563
+missing$ -- 565
 newline$ -- 250
 num.names$ -- 196
-pop$ -- 1427
+pop$ -- 1430
 preamble$ -- 1
-purify$ -- 432
+purify$ -- 433
 quote$ -- 0
-skip$ -- 2166
+skip$ -- 2182
 stack$ -- 0
-substring$ -- 1439
-swap$ -- 1433
-text.length$ -- 23
+substring$ -- 1499
+swap$ -- 1447
+text.length$ -- 24
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 441
 warning$ -- 0
-while$ -- 218
+while$ -- 222
 width$ -- 0
-write$ -- 638
+write$ -- 639
