@@ -148,3 +148,18 @@ API 키가 필요합니다. 저장소에 있는 `plre_test_shells_372.jsonl`은 
 4. §4의 1–5, 7번 (예측값 보관 여부, 부록 수치 대조, 데이터셋 범위, archetype 명칭, 980 분쟁/43 피고, 실험 시점).
 
 예상 심사 결과는 그대로입니다. §3 P0 실험 없이는 Borderline / Weak Reject로 예상합니다.
+
+---
+
+## 7. 4차 점검 (2026-10-18): 과장 표현 정리
+
+원고 변경이 없어서, 이번에는 신뢰구간 없는 점추정이 뒷받침하지 못하는 강한 표현을 전수 검색했습니다. 검색어는 confirm, systematically, demonstrate, significant, robust, establish, "not explained", "the component that" 등입니다. 4곳을 근거 수준에 맞게 고쳤습니다.
+
+| 위치 | 이전 | 수정 |
+|---|---|---|
+| RQ3 | "Flat retrieval **systematically** promotes … closed authorities" | "Without the gate, retrieval admits more … closed authorities" (근거는 집계 stale 비율 하나뿐) |
+| RQ4 | "the gate **is the component that** improves PLRE" | "in this ablation, the PLRE gain comes with the gate" |
+| Discussion | "gains are **not explained by** extra test-time compute" | "suggests that extra compute alone does not explain the gain (compute-matched B5 on PLRE remains to be run)" |
+| Conclusion | 이득을 단정적으로 서술 | 점추정임을 밝히고, CI·non-distractor·날짜 필터 비교가 다음 단계라고 명시 |
+
+남은 TODO와 확인 항목은 §3, §4, §6과 같습니다.

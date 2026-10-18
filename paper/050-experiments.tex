@@ -81,7 +81,7 @@ Table~\ref{tab:ablation} isolates the two mechanisms of Eq.~\eqref{eq:gate}.
 Full validity-interval gating plus treatment weighting yields \plre{} F1 of 0.78 and a stale-citation rate of 4.1\%.
 Removing treatment weighting alone drops F1 by 0.03 and roughly doubles stale citations (7.8\%).
 Removing interval gating entirely (recovering flat semantic similarity) widens the gap to $\Delta$F1 $= -0.06$ and raises the stale-citation rate to 12.7\%---a three-fold increase.
-Flat retrieval systematically promotes lexically similar but already-closed authorities over still-operative ones, altering the evidence that reaches the generator.
+Without the gate, retrieval admits more lexically similar but already-closed authorities, altering the evidence that reaches the generator.
 This controlled degradation constitutes the paper's main methodological result.
 
 \begin{table}[t]
@@ -115,7 +115,7 @@ Stale citations persist even with gold edges because a closed authority can ente
 
 \plre{} uses anonymized product-attribute cards (five archetypes) paired with docket-grounded theory cards across 312 product-mapping cases (1{,}856 pairs; 28.4\% positive; 19.7\% stale-authority distractors; $\kappa = 0.71$).
 Table~\ref{tab:plre}: VIGIL Full reaches 0.78 F1 ($+$0.06 vs.\ no-gate; $+$0.05--0.13 versus non-VIGIL product--theory and legal-NLI baselines).
-VIGIL without gating (0.72) sits slightly below RAG-only (0.73), indicating that the agentic loop without a validity filter can reinforce stale but lexically close precedent; the gate is the component that improves \plre{}.
+VIGIL without gating (0.72) sits slightly below RAG-only (0.73), suggesting that the agentic loop without a validity filter can reinforce stale but lexically close precedent; in this ablation, the \plre{} gain comes with the gate.
 Gains partly reflect rejection of stale distractors (19.7\% of pairs); this version reports F1 on the full held-out set only, not on the non-distractor subset (Limitations).
 Primary claims rest on the 372 held-out pairs.
 
