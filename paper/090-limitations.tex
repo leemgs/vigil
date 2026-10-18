@@ -16,6 +16,7 @@ Run-level mean$\pm$std over five seeds (Appendix~\ref{app:theory}) vary decoding
 B5 (iteration-matched self-refinement), token-matched refinement, pure document-date filters, and learned temporal re-rankers were not run on the \plre{} task.
 A pure date filter cannot encode supersession by later opinions (the endpoint $e_v$ is not a property of document $v$), so it is not a substitute for treatment extraction; we leave a head-to-head comparison to follow-on work.
 B5 on severity labels is a triage control only.
+B1 uses additive scores only, whereas the retained pre-labels used the composite bonus, so B1 is not scored against its own labels; the full-test column of Table~\ref{tab:severity} nonetheless mixes in pre-labels and is reported for scale only.
 The no-gate ablation already isolates the contribution of the validity indicator under otherwise identical retrieval and generation.
 
 \paragraph{Distractor composition.}

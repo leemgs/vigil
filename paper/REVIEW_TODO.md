@@ -127,3 +127,24 @@ API 키가 필요합니다. 저장소에 있는 `plre_test_shells_372.jsonl`은 
 3. 부록 하이퍼파라미터의 "Mapping threshold 0.72 (bi-encoder)"는 본문 PLRE 절차(검증셋 threshold)에서 어디에 쓰이는지 언급되지 않습니다.
 
 예상 심사 결과는 바뀌지 않습니다. §3 P0 실험(bootstrap CI, non-distractor subset, 날짜 필터 baseline, Table 4 이상치 설명) 없이는 Borderline / Weak Reject로 예상합니다.
+
+---
+
+## 6. 3차 점검 (2026-10-18)
+
+미해결 항목을 저자의 이전 원고(`paper_old/`, 커밋 `128228c`)에서 다시 찾아 확인했습니다.
+
+**이번에 해결한 항목**
+- **§4-6 B1 순환성:** 이전 원고에 저자가 직접 쓴 설명이 있었습니다. B1은 additive 점수만 쓰고, retained pre-label은 composite bonus를 썼기 때문에 B1이 자기 출력과 비교되지 않는다는 것입니다. 이 문장을 Limitations에 복원하고, Table 3의 Full 열은 규모 참고용이라고 명시했습니다. 질문 자체는 해결되었고, Full 열을 부록으로 옮길지는 선택 사항입니다.
+- **PLRE 카드 출처:** "legal-research annotators가 공개 제품 문서와 소장(complaint) 주장으로부터 고정 가이드라인에 따라 작성"이라는 이전 원고 문장을 §3.5에 복원했습니다. 리뷰어가 흔히 묻는 "라벨 입력은 누가 무엇으로 만들었나"에 대한 답입니다.
+
+**검증으로 확인한 사실**
+- 이전 원고의 "Azure OpenAI가 2026-02-27에 `gpt-4o-2024-08-06`을 retire"는 **사실과 다릅니다.** 2026-02-27은 초기 공지의 "그 이전에는 retire하지 않음(no earlier than)" 날짜였습니다. 최신 Microsoft Foundry 일정에서는 Deprecated 상태이고, retire 예정일은 2027-04-14입니다. 따라서 이 문장을 되살리면 안 되고, 현재 서술("hosted snapshot은 retire될 수 있다")을 유지합니다.
+
+**여전히 저자 확인이 필요한 항목** (이전 원고에서도 찾지 못함)
+1. PLRE κ = 0.71의 산출 표본(쌍 수, 주석자 수).
+2. Controller 행동 6개와 에이전트 4개의 대응 관계.
+3. 부록 "Mapping threshold 0.72 (bi-encoder)"가 PLRE 절차의 어디에 쓰이는지.
+4. §4의 1–5, 7번 (예측값 보관 여부, 부록 수치 대조, 데이터셋 범위, archetype 명칭, 980 분쟁/43 피고, 실험 시점).
+
+예상 심사 결과는 그대로입니다. §3 P0 실험 없이는 Borderline / Weak Reject로 예상합니다.

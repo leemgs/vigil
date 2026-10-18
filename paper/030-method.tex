@@ -82,7 +82,7 @@ y_{ij} = \mathbf{1}[P, p_i, \mathcal{P}_{t_q} \models T_j].
 Unlike symmetric similarity, \plre{} is directional.
 A pair $(p_i, T_j)$ is promoted to the risk register only when (i)~the entailment score exceeds the validation-set threshold, (ii)~the top supporting precedents remain valid at $t_q$, and (iii)~the report includes mitigation text grounded in at least three cited authorities when available.
 
-\plre{} gold labels are constructed from anonymized product-attribute cards and docket-grounded theory cards.
+\plre{} gold labels are constructed from anonymized product-attribute cards and docket-grounded theory cards, which the legal-research annotators authored from public product documentation and complaint allegations under a fixed guideline.
 Annotators judge a directional pair as positive only when the product attribute, legal theory, query date, and at least one valid supporting authority jointly establish exposure; negative pairs comprise ordinary mismatches and stale-authority distractors.
 Critically, the validity judgment encoded in the labels is produced by annotators reading docket and opinion text, independently of \sysname{}'s automatically extracted treatment graph, so the gate must recover label validity rather than presuppose it.
 Product archetypes are tracked in the split manifest, and year and litigation type are stratified to reduce temporal and topical leakage.
