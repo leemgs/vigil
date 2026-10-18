@@ -3,13 +3,12 @@
 
 The central empirical result is that a validated treatment layer applied as a hard retrieval gate changes \plre{} behavior under matched conditions: stale citations fall from 12.7\% to 4.1\% and F1 rises by 0.06 relative to the identical pipeline without gating (Table~\ref{tab:ablation}).
 Independent checks place negative-treatment micro-F1 at 0.80 (gold spans) and 0.81 (commercial citator).
-These figures are point estimates; we treat them as evidence for the mechanism rather than as significance-tested superiority.
-Instance-level predictions are retained and released so that paired bootstrap CIs can be attached by any reader.
+These figures are point estimates; we treat them as evidence for the mechanism rather than as significance-tested superiority, and we report no confidence intervals in this version (Limitations).
 
 Two controls bound the claim.
 First, without the gate the agentic loop alone does not improve \plre{} (0.72 vs.\ RAG-only 0.73), so gains are not explained by extra test-time compute.
-Second, a surface-form heuristic recovers many explicit \textsc{Overrules}/\textsc{Supersedes} mentions but almost no material narrowing, and citator-oracle intervals flip only 3.8\% of held-out pairs---the extracted layer already tracks the commercial reference for downstream decisions.
+Second, a surface-form keyword heuristic recovers many explicit \textsc{Overrules}/\textsc{Supersedes} mentions but almost no material narrowing (negative-treatment F1 0.52 vs.\ 0.80; Appendix~\ref{app:edge}), and citator-corrected intervals flip only 3.8\% of held-out pairs---the extracted layer already tracks the commercial reference for downstream decisions.
 We deliberately do not evaluate pure date filters or learned temporal re-rankers on \plre{} in the present study; a date filter cannot recover supersession endpoints from later opinions, which is the extraction problem this work targets.
-External-stack transfer (Protocol~P1) remains a pilot and is not claimed.
+External-stack transfer (Protocol~P1) remains a pilot that fails its pre-specified criterion (Appendix~\ref{app:p1}) and is not claimed.
 
 On severity triage ($n = 82$), \sysname{} leads iteration-matched B5 by a small margin (0.79 vs.\ 0.75); that comparison is secondary to \plre{}.

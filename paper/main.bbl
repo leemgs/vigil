@@ -1,4 +1,4 @@
-\begin{thebibliography}{49}
+\begin{thebibliography}{50}
 \providecommand{\natexlab}[1]{#1}
 
 \bibitem[{Angelopoulos et~al.(2025)Angelopoulos, Bates, Cand{\`e}s, Jordan, and
@@ -71,6 +71,13 @@ Wenhu Chen, Xinyi Wang, and William~Yang Wang. 2021.
 \newblock A dataset for answering time-sensitive questions.
 \newblock In \emph{Proceedings of the Neural Information Processing Systems
   Track on Datasets and Benchmarks}.
+
+\bibitem[{{Congressional Research Service}(2022)}]{conan2022}
+{Congressional Research Service}. 2022.
+\newblock {The Constitution of the United States of America: Analysis and
+  Interpretation}, 2022 edition.
+\newblock \url{https://www.govinfo.gov/app/details/GPO-CONAN-2022}.
+\newblock Table of Supreme Court Decisions Overruled by Subsequent Decisions.
 
 \bibitem[{Dahl et~al.(2024)Dahl, Magesh, Suzgun, and
   Ho}]{dahl2024hallucinating}

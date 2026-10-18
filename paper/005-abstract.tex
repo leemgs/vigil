@@ -4,7 +4,7 @@ We introduce Product--Litigation Risk Entailment (\plre), a directional task tha
 Our system, \sysname{} (Validity-Interval Gating in Litigation), extracts treatment edges (overrules, supersedes, narrows) from later opinions, turns them into validity intervals, and validates them against gold citation spans (negative-treatment micro-F1 0.80) and a commercial citator (0.81).
 A simple retrieval-time gate applies these intervals before generation, and a goal-conditioned agentic loop stops when evidence coverage, not legal correctness, is satisfied.
 On VIGIL-Dataset (1{,}247 U.S.\ AI-litigation cases, 312 product-mapping cases), validity gating raises held-out \plre{} F1 from 0.72 to 0.78 and cuts the stale-citation rate from 12.7\% to 4.1\% relative to the same pipeline without the gate (point estimates, not significance-tested).
-On a human-adjudicated triage subset ($n = 82$), \sysname{} reaches macro F1 0.79 vs.\ 0.75 for an iteration-matched baseline.
+On a small human-adjudicated triage subset ($n = 82$), \sysname{} reaches macro F1 0.79 vs.\ 0.75 for an iteration-matched baseline.
 We release the dataset, label provenance, guidelines, and evaluation scripts.
 \sysname{} is decision support for qualified reviewers, not legal advice.
 \end{abstract}

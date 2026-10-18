@@ -2,7 +2,7 @@
 \label{sec:problem}
 
 Let $\mathcal{D} = \{d_1, \ldots, d_n\}$ be public litigation documents with metadata and text, and let $P$ be a product specification describing architecture, data provenance, modality, and deployment context.
-\sysname{} returns a structured risk report $R^*$ and mitigation candidates $\mathcal{G}^*$ that must satisfy an auditable goal predicate $\mathcal{G}$ (\S\ref{sec:goal}).
+\sysname{} returns a structured risk report $R^*$ and mitigation candidates $M^*$ that must satisfy an auditable goal predicate $\mathcal{G}$ (\S\ref{sec:goal}).
 Report quality is not optimized directly; we evaluate it by severity-label F1 (RQ1), blinded report ratings (RQ2), and the coverage loss $L_\tau$ (RQ5).
 The core difficulty is a domain gap: product specifications employ engineering terms (data pipelines, API distribution), whereas litigation documents speak in causes of action, procedural posture, and precedent.
 \plre{} (\S\ref{sec:plre}) therefore requires mapping engineering-language attributes onto legal-risk theories while conditioning the support set on authority that remains valid at the query date.
@@ -25,11 +25,12 @@ L_\tau(c) = \mathbf{1}\!\left[\exists\, T \in \mathcal{T}_c^H : T \notin R^*\rig
 \end{equation}
 
 \begin{observation}[Coverage-controlled stopping with escalation]
+\label{obs:stop}
 Assume the set of risk items under consideration is fixed within a run (the Reporter may rewrite mitigation text but does not introduce new risk atoms that expand $\Phi$).
 Under monotone evidence caching and attainable progress, $\Phi(R_t)$ is non-increasing, reaches zero in at most $\Phi(R_0)$ successful progress steps when all atoms are attainable, and otherwise returns the residual atoms at $T_{\max}$.
 If $\hat{\tau}$ is selected on exchangeable calibration cases by conformal risk control, then the next-case omission risk satisfies $\mathbb{E}[L_{\hat{\tau}}] \le \alpha$.
 \end{observation}
 
-The first clause follows almost directly from the definitions.
+The first clause follows almost directly from the definitions (proof in Appendix~\ref{app:theory}).
 The second clause is a standard application of conformal risk control \citep{angelopoulos2023conformalrisk} to $L_\tau$, which is monotone in $\tau$.
 It governs evidence coverage only, holds only for exchangeable cases---our temporal split violates it at $\alpha \in \{0.05, 0.10\}$ (\S\ref{sec:experiments})---and its tightness depends on the calibration-set size (150 cases).

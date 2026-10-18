@@ -8,10 +8,9 @@ We report point estimates and do not claim statistical significance for any comp
 The contribution is the validated gate construction and its downstream effect under matched retrieval, not a leaderboard win under every possible baseline.
 
 \paragraph{Statistical uncertainty.}
-Instance-level predictions necessary for the main automatic metrics (stale-citation rate, decision-flip under citator correction, masking ablations) were retained and are released with the evaluation scripts.
-Paired bootstrap confidence intervals on the primary \plre{} comparison (gate vs.\ no-gate) can therefore be recomputed by any reader.
-In the present submission we report point estimates together with the operational magnitudes that matter for the mechanistic claim.
-Aggregate mean$\pm$std over five random seeds appear in the supplementary material as run-level summaries.
+All comparisons are point estimates without confidence intervals or significance tests.
+The primary \plre{} gap (0.78 vs.\ 0.72 F1 on 372 pairs) and the severity gap (0.79 vs.\ 0.75 on 82 cases) are small enough that paired bootstrap intervals are needed before either can be called reliable.
+Run-level mean$\pm$std over five seeds (Appendix~\ref{app:theory}) vary decoding and exemplar order only and are not a substitute for per-instance uncertainty.
 
 \paragraph{Baselines not evaluated on \plre.}
 B5 (iteration-matched self-refinement), token-matched refinement, pure document-date filters, and learned temporal re-rankers were not run on the \plre{} task.
@@ -21,7 +20,7 @@ The no-gate ablation already isolates the contribution of the validity indicator
 
 \paragraph{Distractor composition.}
 Stale-authority distractors constitute 19.7\% of \plre{} pairs by design: they test whether the gate removes closed support that lexical retrieval would otherwise promote.
-Gains partly reflect rejection of these distractors; a non-distractor subset analysis is left to the released evaluation scripts and future work to fully isolate ranking among still-open authorities.
+Gains partly reflect rejection of these distractors, and we do not report F1 on the non-distractor subset, so the effect of the gate on ranking among still-open authorities is not isolated.
 
 \paragraph{Split structure.}
 Case and \plre{} splits are stratified by year and litigation type (or product archetype), not by dispute identity.
@@ -40,8 +39,8 @@ The dataset is U.S.-federal and skewed toward large defendants (top three accoun
 Primary experimental runs were conducted after the December 2025 cutoff of the dataset window.
 The treatment graph, \plre{} labels, and all automatic metrics were computed on the frozen corpus that ends 31 December 2025.
 Controller and Analyzer calls used the OpenAI API snapshot \texttt{gpt-4o-2024-08-06}.
-That version string has since been retired by Azure OpenAI; bit-identical re-runs therefore require the original snapshot or an equivalent open-weights stack (we provide a Llama-3.1-70B + bge robustness result).
-Because many underlying opinions pre-date the knowledge cutoff of the GPT-4o snapshot, we cannot rule out that the model had already seen portions of the corpus during pre-training; the open-weights run provides a partial check against this confound.
+Hosted snapshots can be retired, so bit-identical re-runs require that snapshot; the Llama-3.1-70B + bge run shows the pipeline also runs on open weights.
+Because many underlying opinions pre-date the knowledge cutoff of both models, we cannot rule out that either had seen parts of the corpus during pre-training; the open-weights run does not remove this confound.
 
 \paragraph{Future work.}
-Larger human adjudication, paired-bootstrap CIs on the main tables, non-distractor and dispute-blocked audits, B5/token-matched and temporal re-ranker controls on \plre{}, leave-one-archetype-out evaluation, and broader jurisdictional coverage.
+Larger human adjudication, paired-bootstrap CIs on the main tables, non-distractor and dispute-blocked audits, B5/token-matched, date-filter and temporal re-ranker controls on \plre{}, leave-one-archetype-out evaluation, and broader jurisdictional coverage.

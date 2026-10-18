@@ -5,7 +5,7 @@
 \label{sec:overview}
 
 \sysname{} comprises two layers.
-A sensing pipeline discovers AI-litigation filings in CourtListener/RECAP~\citep{courtlistener2023} and legal news and converts them into case records; this engineering infrastructure is documented in the supplementary material.
+A sensing pipeline discovers AI-litigation filings in CourtListener/RECAP~\citep{courtlistener2023} and legal news and converts them into case records; this engineering infrastructure is documented in the supplementary material and is not evaluated here.
 The remainder of this section describes the evaluated NLP components: LegalRisk-RAG (\S\ref{sec:rag}), the goal-conditioned agentic loop (\S\ref{sec:agent}), the temporal precedent graph (\S\ref{sec:temporal}), and the \plre{} decision procedure (\S\ref{sec:plre}).
 
 \subsection{LegalRisk-RAG}
@@ -19,14 +19,14 @@ The LegalRisk-RAG pipeline adapts standard RAG to legal text in three respects.
 \subsection{Goal-Conditioned Agentic Loop}
 \label{sec:agent}
 
-The four specialized agents and the central Goal Checker operate as described in the supplementary material.
-The Planner decomposes unmet sub-goals into ordered retrieval/analysis sub-tasks; the Retriever runs LegalRisk-RAG queries and reformulates via legal entity term expansion when $\mathcal{G}_{\mathrm{evidence}}$ is unmet; the Analyzer computes $\mathrm{RiskScore}(d_i, P, C)$, clusters evidence, and maps clusters to a risk taxonomy (Training Data, Output Reproduction, API Misuse, Model Weights); the Goal Checker evaluates $\mathcal{G}(R_t)$ after each pass and returns machine-readable residuals; the Planner converts these critiques into expanded entity/date/theory queries; and the Reporter assembles the risk register, per-risk evidence with citations, and mitigation guidance.
+The four specialized agents and the central Goal Checker run until $\mathcal{G}$ holds or $T_{\max}$ is reached (hyperparameters in Appendix~\ref{app:repro}).
+The Planner decomposes unmet sub-goals into ordered retrieval/analysis sub-tasks; the Retriever runs LegalRisk-RAG queries and reformulates via legal entity term expansion when $\mathcal{G}_{\mathrm{evidence}}$ is unmet; the Analyzer scores each retrieved document $d_i$ against $P$, clusters evidence, and maps clusters to a risk taxonomy (Training Data, Output Reproduction, API Misuse, Model Weights); the Goal Checker evaluates $\mathcal{G}(R_t)$ after each pass and returns machine-readable residuals; the Planner converts these critiques into expanded entity/date/theory queries; and the Reporter assembles the risk register, per-risk evidence with citations, and mitigation guidance.
 
 \subsection{Temporal Precedent Graph}
 \label{sec:temporal}
 
 \sysname{}'s central component is a treatment layer that determines when each authority ceases to be operative; a simple retrieval-time gate then applies it.
-The layer is realized as a temporal precedent graph $P_t = (V, E_t)$.
+The layer is realized as a temporal precedent graph $\mathcal{P}_t = (V, E_t)$.
 Each node $v \in V$ denotes a case, order, or doctrinal rule and stores jurisdiction, court level, issue tags, filing and decision dates, and a validity interval $[s_v, e_v)$, where $e_v$ remains open unless the node is later vacated, overruled, or superseded; material narrowing instead lowers its treatment weight.
 Directed edges encode treatment relations: \textsc{Cites}, \textsc{Distinguishes}, \textsc{Narrows}, \textsc{Supersedes}, and \textsc{Overrules}.
 Retrieval for a query at date $t_q$ first obtains semantically relevant candidates and then applies validity gating:
@@ -45,7 +45,7 @@ Equation~\eqref{eq:gate} is therefore a constrained retrieval operator over $(q,
 Once intervals are known, Eq.~\eqref{eq:gate} is a metadata filter any vector store can apply.
 The difficulty is upstream and conceptual: $e_v$ is set by later documents that overrule, supersede, or narrow $v$, so it is not recoverable from $v$'s own filing date.
 A pure recency or document-date filter therefore cannot implement the same operator; the empirical question is whether treatment edges can be extracted reliably enough to use.
-Table~\ref{tab:treatment} addresses that question: negative-treatment micro-F1 is 0.80 on 600 gold spans and 0.81 against a commercial citator (Protocol~P2; missed-action rate 20.4\%; 3.8\% of held-out \plre{} pairs flip after citator correction).
+Table~\ref{tab:treatment} addresses that question: negative-treatment micro-F1 is 0.80 on 600 gold spans and 0.81 against a commercial citator on 400 sampled edges (Protocol~P2; missed-action rate 20.4\%; 3.8\% of held-out \plre{} pairs flip after citator correction; Appendix~\ref{app:edge}--\ref{app:p2}).
 
 \begin{table}[t]
 \centering
@@ -56,11 +56,11 @@ Table~\ref{tab:treatment} addresses that question: negative-treatment micro-F1 i
 Reference & P & R & F1 \\
 \midrule
 Gold spans ($n = 600$) & 0.84 & 0.77 & 0.80 \\
-Citator (Protocol P2) & 0.83 & 0.80 & 0.81 \\
+Citator, P2 ($n = 400$) & 0.83 & 0.80 & 0.81 \\
 \bottomrule
 \end{tabular}
 \end{adjustbox}
-\caption{Treatment-layer validation (neg.-treatment micro over \textsc{Overrules}/\textsc{Supersedes}/material \textsc{Narrows}).}
+\caption{Treatment-layer validation (neg.-treatment micro over \textsc{Overrules}/\textsc{Supersedes}/material \textsc{Narrows}; per-relation results in Appendix~\ref{app:edge}).}
 \label{tab:treatment}
 \end{table}
 
@@ -77,7 +77,7 @@ Low-confidence negative-treatment edges are routed to human review rather than a
 We cast product-litigation alignment as a risk-entailment task.
 Given a product spec $P$ with attributes $\{p_1, \ldots, p_m\}$, a legal-risk theory $T_j$, and a query date $t_q$, \plre{} predicts
 \begin{equation}
-y_{ij} = \mathbf{1}[P, p_i, P_{t_q} \models T_j].
+y_{ij} = \mathbf{1}[P, p_i, \mathcal{P}_{t_q} \models T_j].
 \end{equation}
 Unlike symmetric similarity, \plre{} is directional.
 A pair $(p_i, T_j)$ is promoted to the risk register only when (i)~the entailment score exceeds the validation-set threshold, (ii)~the top supporting precedents remain valid at $t_q$, and (iii)~the report includes mitigation text grounded in at least three cited authorities when available.

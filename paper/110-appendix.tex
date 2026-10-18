@@ -1,6 +1,301 @@
 \appendix
 
-\section{Additional Material}
-\label{sec:appendix}
+\section{Treatment-Edge Extraction}
+\label{app:edge}
 
-Full appendices---including dataset inclusion criteria, ingestion scoring matrix, system architecture, treatment-edge extraction accuracy, additional ablations, hyperparameters, proof of Observation~1, validation protocols P1/P2, and the SCOTUS overruling pair resource---are provided in the supplementary material uploaded with this submission. Reviewers are not required to consult the supplementary material for the claims in the main paper.
+Table~\ref{tab:edge_extraction} reports per-relation accuracy of the treatment-edge extractor (\S\ref{sec:temporal}) against the 600 hand-labeled gold citation spans.
+Negative-treatment edges drive interval closure (\textsc{Supersedes}/\textsc{Overrules}) or down-weighting (material \textsc{Narrows}) and are micro-averaged separately from the high-frequency \textsc{Cites} relation.
+
+\begin{table}[h]
+\centering
+\small
+\begin{adjustbox}{max width=\columnwidth}
+\begin{tabular}{lccc}
+\toprule
+Relation & P & R & F1 \\
+\midrule
+\textsc{Cites} & 0.94 & 0.96 & 0.95 \\
+\textsc{Distinguishes} & 0.81 & 0.76 & 0.78 \\
+\textsc{Narrows} (material) & 0.79 & 0.71 & 0.75 \\
+\textsc{Supersedes} & 0.85 & 0.78 & 0.81 \\
+\textsc{Overrules} & 0.88 & 0.82 & 0.85 \\
+\midrule
+Negative treatment (micro) & 0.84 & 0.77 & 0.80 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\caption{Treatment-edge extraction accuracy on the 600 gold citation spans.}
+\label{tab:edge_extraction}
+\end{table}
+
+\paragraph{Keyword heuristic baseline.}
+A surface-form heuristic flags citation sentences containing \textit{overruled}, \textit{superseded}, \textit{abrogated}, \textit{overturned}, or \textit{no longer good law}.
+On the same 600 spans its negative-treatment micro P/R/F1 is 0.71/0.41/0.52 (LLM classifier: 0.84/0.77/0.80).
+It recovers many explicit \textsc{Overrules}/\textsc{Supersedes} mentions but almost no material \textsc{Narrows}, and cannot label \textsc{Distinguishes} polarity.
+
+\section{Citator Agreement (Protocol P2)}
+\label{app:p2}
+
+\paragraph{Design.}
+P2 compares the extracted negative-treatment edges with a commercial citator.
+A stratified random sample of edges from the graph (1{,}812 nodes, 4{,}760 edges), oversampling negative treatment, was fixed by a released seed before any citator lookup.
+Citator signals were mapped to \sysname{}'s relation taxonomy through a pre-specified crosswalk by two annotators blind to \sysname{}'s predictions, with a third adjudicating.
+Two acceptance thresholds were frozen before sampling: negative-treatment micro-F1 $\ge 0.80$, and a missed-action rate no higher than the extractor's internal-gold miss rate ($\approx$23\%).
+No citator content is redistributed; the crosswalk, seeds, and agreement statistics are released.
+
+\paragraph{Results.}
+The audit sampled 400 treatment candidates, 162 of them negative treatment.
+Crosswalk agreement between annotators was $\kappa = 0.78$; on the negative-vs.-other dichotomy, \sysname{}--citator $\kappa$ is 0.74.
+Table~\ref{tab:p2_edge} gives edge agreement and Table~\ref{tab:p2_closure} action agreement and downstream impact; both thresholds are met.
+Of 156 predicted negative-treatment actions, 129 match the citator relation; of the 27 relation-level false positives, only 7 change the closing or down-weighting action.
+Material \textsc{Narrows} remains the weakest relation and stays in the human-review queue.
+
+\begin{table}[h]
+\centering
+\small
+\begin{adjustbox}{max width=\columnwidth}
+\begin{tabular}{lcccc}
+\toprule
+Relation & $n$ & P & R & F1 \\
+\midrule
+\textsc{Overrules} & 54 & 0.87 & 0.83 & 0.85 \\
+\textsc{Supersedes} & 47 & 0.82 & 0.79 & 0.80 \\
+material \textsc{Narrows} & 61 & 0.80 & 0.77 & 0.78 \\
+Neg.\ treatment (micro) & 162 & 0.83 & 0.80 & 0.81 \\
+Cautionary & 78 & 0.81 & 0.74 & 0.77 \\
+Positive/neutral & 160 & 0.93 & 0.95 & 0.94 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\caption{P2 edge agreement with the citator-derived reference; $n$ is the number of reference positives.}
+\label{tab:p2_edge}
+\end{table}
+
+\begin{table}[h]
+\centering
+\small
+\begin{adjustbox}{max width=\columnwidth}
+\begin{tabular}{lc}
+\toprule
+Metric & Value \\
+\midrule
+Matched negative-treatment actions & 129 / 162 \\
+Missed-action rate & 20.4\% \\
+False-action rate (7 / 156) & 4.5\% \\
+Action-date error: median / mean & 18 / 31 days \\
+Action-date error: 90th percentile & 74 days \\
+Point-in-time validity accuracy & 0.88 \\
+\plre{} decision flips after correction & 3.8\% \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\caption{P2 action agreement (closure for \textsc{Overrules}/\textsc{Supersedes}, down-weighting for material \textsc{Narrows}). Decision flips are a share of all held-out \plre{} pairs.}
+\label{tab:p2_closure}
+\end{table}
+
+\section{Edge-Error Propagation}
+\label{app:propagation}
+
+Table~\ref{tab:edge_sensitivity} measures how negative-treatment errors propagate to \plre{}.
+The gold row substitutes gold labels on the 600 annotated spans only; the other extracted edges are unchanged.
+Mask rows additionally remove a random fraction of the extracted negative-treatment edges before retrieval.
+
+\begin{table}[h]
+\centering
+\small
+\setlength{\tabcolsep}{3.5pt}
+\begin{adjustbox}{max width=\columnwidth}
+\begin{tabular}{lcccc}
+\toprule
+Setting & Eff.\ miss & F1 & $\Delta$F1 & Stale \% \\
+\midrule
+Gold edges (on spans) & 0\% & 0.80 & $+0.02$ & 3.7 \\
+Extractor output & $\approx$23\% & 0.78 & --- & 4.1 \\
+\,+ mask 10\% & $\approx$31\% & 0.76 & $-0.02$ & 6.2 \\
+\,+ mask 23\% & $\approx$41\% & 0.74 & $-0.04$ & 8.9 \\
+\,+ mask 30\% & $\approx$46\% & 0.72 & $-0.06$ & 11.3 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\caption{Edge-error propagation (\plre{} F1, held-out pairs). Effective miss rate $\approx 1 - 0.77(1 - x)$ for mask fraction $x$; $\Delta$F1 is relative to the extractor row.}
+\label{tab:edge_sensitivity}
+\end{table}
+
+\section{Agentic-Loop and Retriever Ablations}
+\label{app:ablations}
+
+Table~\ref{tab:loop_ablation} removes one loop component at a time (full held-out test set, including retained pre-labels; mean over five runs).
+Only removing query expansion lowers retrieval recall.
+Table~\ref{tab:retriever_ablation} compares retrievers on the 200-pair development set used to choose the default (\S\ref{sec:rag}).
+
+\begin{table}[h]
+\centering
+\small
+\begin{adjustbox}{max width=\columnwidth}
+\begin{tabular}{lcc}
+\toprule
+Variant & Severity F1 & Recall@10 \\
+\midrule
+\sysname{} (Full) & 0.81 & 0.84 \\
+$-$ Goal Checker & 0.76 & 0.84 \\
+$-$ Planner (fixed order) & 0.78 & 0.84 \\
+$-$ query expansion & 0.79 & 0.76 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\caption{Agentic-loop component ablation. Removing the Goal Checker leaves a single agent; removing the Planner fixes the task order.}
+\label{tab:loop_ablation}
+\end{table}
+
+\begin{table}[h]
+\centering
+\small
+\begin{adjustbox}{max width=\columnwidth}
+\begin{tabular}{lc}
+\toprule
+Retriever & Recall@10 \\
+\midrule
+Dense (\texttt{text-embedding-3-large}) & 0.79 \\
+LegalBERT (fine-tuned on RECAP) & 0.81 \\
+Hybrid (BM25 + neural re-ranking) & 0.84 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\caption{Retriever comparison on the development set.}
+\label{tab:retriever_ablation}
+\end{table}
+
+\section{Stopping Rule, Calibration, and Backbones}
+\label{app:theory}
+
+\paragraph{Proof of Observation~\ref{obs:stop} (first clause).}
+Let $\Phi(R_t) \in \mathbb{Z}_{\ge 0}$ count unmet atomic sub-conditions of $\mathcal{G}$: one per missing severity label, per under-supported evidence requirement, and per missing mitigation.
+(A1) \emph{Monotone evidence caching}: query expansion unions new hits with the prior evidence cache, so a satisfied evidence or mitigation atom stays satisfied and $\Phi(R_{t+1}) \le \Phi(R_t)$.
+(A2) \emph{Attainable progress}: if $\Phi(R_t) > 0$ and some unmet atom is attainable (its evidence exists in $\mathcal{D}$), the Planner schedules it and it is resolved, so $\Phi(R_{t+1}) \le \Phi(R_t) - 1$.
+Hence, if every atom is attainable, $\Phi$ reaches 0 within $\Phi(R_0)$ steps; otherwise the loop stops at $T_{\max}$ and the Goal Checker returns the residual atoms for human escalation. \hfill$\square$
+(A1) holds by construction; (A2) is a design assumption that we do not verify directly.
+
+\paragraph{Conformal calibration (second clause).}
+For calibration cases $c_1, \ldots, c_n$ ($n = 150$), let $L_i(\tau) \in \{0, 1\}$ indicate that a retrievable, human-labeled High-risk theory of $c_i$ is omitted, and let $\hat{R}_n(\tau)$ be its mean, which does not increase as $\tau$ decreases.
+Following conformal risk control~\citep{angelopoulos2023conformalrisk}, $\hat{\tau} = \sup\{\tau : \frac{n}{n+1}\hat{R}_n(\tau) + \frac{1}{n+1} \le \alpha\}$ gives $\mathbb{E}[L_{n+1}(\hat{\tau})] \le \alpha$ for an exchangeable test case.
+For joint $(k, \tau)$ selection we use a Learn-then-Test grid~\citep{angelopoulos2021ltt} with fixed-sequence testing, which yields $\Pr[R(\hat{k}, \hat{\tau}) \le \alpha] \ge 1 - \delta$ instead.
+Table~\ref{tab:risk_control_temporal} gives achieved risk: random splits meet every budget, while the temporal split exceeds it at $\alpha \in \{0.05, 0.10\}$.
+
+\begin{table}[h]
+\centering
+\small
+\begin{adjustbox}{max width=\columnwidth}
+\begin{tabular}{lccc}
+\toprule
+Split & $\alpha{=}0.05$ & $\alpha{=}0.10$ & $\alpha{=}0.20$ \\
+\midrule
+Random & 0.043 & 0.082 & 0.171 \\
+Temporal & 0.061 & 0.113 & 0.196 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\caption{Achieved evidence-omission risk under random resplits and a temporal split (2023--24 $\to$ 2025); evidence coverage, not severity correctness.}
+\label{tab:risk_control_temporal}
+\end{table}
+
+\paragraph{Backbones.}
+Table~\ref{tab:robustness} reports the full system under two backbones; baselines were not re-run on the open-weights stack, so the table supports no cross-backbone comparison with them.
+
+\begin{table}[h]
+\centering
+\small
+\begin{adjustbox}{max width=\columnwidth}
+\begin{tabular}{lcc}
+\toprule
+Configuration & Macro F1 & Mean iters \\
+\midrule
+GPT-4o stack & $0.81 \pm 0.02$ & $2.4 \pm 0.3$ \\
+Llama-3.1-70B stack & $0.76 \pm 0.02$ & $2.6 \pm 0.3$ \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\caption{Full \sysname{} under two backbones: GPT-4o with \texttt{text-embedding-3-large}, and Llama-3.1-70B with \texttt{bge-large} (severity macro F1 on the full held-out test set; mean $\pm$ std over five runs).}
+\label{tab:robustness}
+\end{table}
+
+\section{Hyperparameters and Evaluation Protocol}
+\label{app:repro}
+
+\begin{table}[h]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{adjustbox}{max width=\columnwidth}
+\begin{tabular}{llp{2.8cm}}
+\toprule
+Parameter & Value & Description \\
+\midrule
+$k$ & 3 & Min.\ documents per risk item \\
+$\tau$ & 0.62 & Default min.\ relevance (re-ranker score scaled to $[0, 1]$); recalibrated in RQ5 \\
+$T_{\max}$ & 5 & Max.\ loop iterations \\
+Controller, Analyzer & GPT-4o & Temperature 0.2 \\
+Edge classifier & GPT-4o & Temperature 0 \\
+Embedding dim. & 3072 & \texttt{text-\allowbreak embedding-\allowbreak 3-\allowbreak large} \\
+Mapping threshold & 0.72 & Product--risk bi-encoder similarity \\
+$w$: positive / open & 1.00 & Positive or no negative treatment \\
+$w$: cautionary & 0.75 & Cautionary or questioned \\
+$w$: material narrows & 0.50 & Materially narrowed \\
+$w$: closed & 0.00 & Overruled or superseded; removed by Eq.~\eqref{eq:gate} \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\caption{Loop and gating hyperparameters used in all reported experiments.}
+\label{tab:hyperparams}
+\end{table}
+
+\paragraph{Runs and seeds.}
+The five seeds vary controller/Analyzer decoding (temperature 0.2) and few-shot exemplar order; the retrieval index, treatment graph, edge classifier (temperature 0), and test membership are fixed.
+Run-level means are not per-instance uncertainty estimates.
+The Goal Checker is deterministic rule evaluation over $R_t$ (no LLM call).
+
+\paragraph{Report ratings (RQ2).}
+Two specialists, blind to system identity, rated 75 reports (the same 15 cases under each of five systems, presented in random order with identifiers stripped).
+Inter-rater $\kappa$ is 0.68/0.71/0.65/0.74/0.62 on Accuracy, Completeness, Actionability, Evidence Sufficiency, and Clarity.
+
+\section{External-Transfer Pilot (Protocol P1)}
+\label{app:p1}
+
+\paragraph{Protocol.}
+P1 asks whether the gate of Eq.~\eqref{eq:gate}, applied as post-hoc re-scoring, improves external retrievers that use none of \sysname{}'s loop, data, or goal predicate.
+Its criterion, frozen before any run, requires Holm-significant nDCG@10 gains and stale@10 reductions on at least two of three hosts, with non-inferiority (margin $-0.5$ nDCG points) on control queries.
+The full protocol has not been executed; we report a pilot.
+
+\paragraph{Pilot.}
+Gold closures come from the Constitution Annotated table of overruled U.S.\ Supreme Court decisions~\citep{conan2022}, matched to Caselaw Access Project opinions~\citep{cap2024}; overrulings decided in or after 2020 are excluded, so the pilot is disjoint from the VIGIL-Dataset window.
+This leaves 253 pairs and 29{,}030 opinions.
+Queries are citing passages from later opinions with case names, citations, and years masked: post-closure queries cite the overruling case (984 queries, 208 pairs), pre-closure queries cite the later-overruled case before its overruling (1{,}061), and control queries cite cases absent from the table (1{,}133).
+Hosts are BM25~\citep{robertson2009bm25}, \texttt{bge-small-en-v1.5}~\citep{xiao2024cpack}, and LegalBERT~\citep{chalkidis2020legalbert}, each retrieving the top 100 opinions decided before the query date.
+The pilot deviates from P1: it has no COLIEE-style slice and no extractor-treatment variant, and it uses a cluster bootstrap by gold pair.
+
+\paragraph{Result.}
+The pilot does not support transfer: only bge meets the criterion (Table~\ref{tab:p1_pilot}).
+With gold intervals the gate removes every overruled case from the top 10 on all hosts, non-inferiority holds everywhere, and on pre-closure queries the gate never removed the gold case.
+nDCG@10 gains are at most 0.13 points, because removal helps only when the stale case outranks the correct one.
+LegalBERT is a weak host here and rarely retrieves the stale case.
+On partial overrulings, $w \in \{0.25, 0.5, 0.75\}$ gives identical rankings, so the pilot is uninformative about $w(\cdot)$.
+A post-hoc exclusion of four BM25 queries whose gold case was itself later overruled would let two hosts pass; because it was chosen after seeing results, the pre-specified verdict stands.
+The queries, relevance judgments, gold closures, corpus identifiers, and a scorer are released as a supersession-aware retrieval testbed.
+
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lcccccc}
+\toprule
+Host & nDCG@10 & Stale@10 & $\Delta$nDCG@10 & $\Delta$Stale@10 (pts) & Ctrl LB & Met \\
+\midrule
+BM25 & 28.88 & 8.3\% & $+0.09$ $[-0.58, +0.52]$ & $-8.3^{*}$ $[-10.7, -6.2]$ & $+0.04$ & no \\
+bge-small & 8.35 & 5.5\% & $+0.13^{*}$ $[+0.04, +0.27]$ & $-5.5^{*}$ $[-7.1, -3.9]$ & $+0.00$ & yes \\
+LegalBERT & 2.30 & 0.4\% & $+0.00$ $[+0.00, +0.00]$ & $-0.4^{*}$ $[-0.8, -0.1]$ & $+0.00$ & no \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\caption{P1 pilot, gold-treatment variant, on post-closure queries of full overrulings ($n = 984$, 208 pair clusters). nDCG@10 and Stale@10 are for the ungated host; $\Delta$ is gated minus ungated with 95\% cluster-bootstrap CIs (10{,}000 resamples); $^{*}$Holm-adjusted $p < 0.05$ across hosts. Ctrl LB: lower bound of $\Delta$nDCG@10 on control queries (non-inferiority margin $-0.5$).}
+\label{tab:p1_pilot}
+\end{table*}

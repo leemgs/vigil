@@ -14,16 +14,16 @@ We evaluate \sysname{} along five research questions:
 \label{sec:setup}
 
 \paragraph{Dataset split and label provenance.}
-VIGIL-Dataset is partitioned into stratified train/validation/test splits by year and litigation type.
+VIGIL-Dataset is partitioned 70/10/20 into train/validation/test splits stratified by year and litigation type (not by dispute identity; Limitations).
 Because a substantial share of labels originate from an automated pre-labeler and only a subset are human-adjudicated, primary claims are computed exclusively on the human-adjudicated test split ($n = 82$ cases); retained-label results are reported solely for scale.
 Conformal calibration draws on human-adjudicated cases from the training and validation pools, kept disjoint from the test cases.
 For \sysname{} and baselines B2--B5 the training split is used only to select few-shot examples and tune thresholds; no LLM is fine-tuned.
 
-\plre{} pairs (1{,}856 total; 28.4\% positive; 19.7\% stale-authority distractors) are partitioned 1{,}112 / 372 / 372 (train / validation / test) by product archetype and year, corresponding to an approximate 60/20/20 ratio.
+\plre{} pairs (1{,}856 total; 28.4\% positive; 19.7\% stale-authority distractors) are partitioned 1{,}112 / 372 / 372 (train / validation / test; $\approx$60/20/20), stratified by product archetype and year so that every archetype appears in every split.
 Few-shot exemplars and the entailment threshold use only train/validation; all reported metrics use the 372 held-out test pairs.
 
 \paragraph{Baselines.}
-We compare \sysname{} against five risk-classification baselines: B1 Additive-only Rule; B2 Single-Pass LLM; B3 RAG-only; B4 Single-Agent (\sysname{} without the goal-conditioned loop); and B5 Iteration-Matched Self-Refinement (Reflexion-style~\citep{shinn2023reflexion}, matched on \sysname{}'s mean budget of 2.4 iterations).
+We compare \sysname{} against five risk-classification baselines: B1 Additive-only Rule (the pre-labeler's scoring matrix without its composite bonus, thresholds tuned on validation); B2 Single-Pass LLM; B3 RAG-only; B4 Single-Agent (\sysname{} without the goal-conditioned loop); and B5 Iteration-Matched Self-Refinement (Reflexion-style~\citep{shinn2023reflexion}, matched on \sysname{}'s mean budget of 2.4 iterations, not on tokens).
 B2--B5 share the same GPT-4o backbone and decoding settings as \sysname{}.
 For \plre{} we further include non-VIGIL baselines that isolate suspected confounds: product--theory cosine, LegalBERT product--theory NLI, COLIEE-style~\citep{rabelo2022coliee} precedent retrieval without interval closure, and \sysname{} without temporal gating.
 
@@ -37,7 +37,7 @@ Severity-label F1 measures triage-label agreement, not legal liability.
 
 Table~\ref{tab:severity} reports severity-label agreement on the human-adjudicated subset ($n = 82$).
 \sysname{} reaches 0.79 macro F1 vs.\ 0.75 for iteration-matched B5; the same rank order holds on the full held-out test set.
-These triage numbers are secondary to \plre{} and are not significance-tested.
+With $n = 82$ we do not treat this four-point gap as established; these triage numbers are secondary to \plre{} and are not significance-tested.
 
 \begin{table}[t]
 \centering
@@ -69,9 +69,9 @@ Full: held-out test including retained pre-labels.}
 \label{sec:rq2}
 
 Two blinded specialists rated \sysname{} and B2--B5 reports on 15 cases (75 reports) along Accuracy, Completeness, Actionability, Evidence Sufficiency, and Clarity (5-point scales).
-Mean scores were highest for \sysname{} on Evidence Sufficiency (4.4).
-Mean inter-rater $\kappa = 0.68$.
-RQ2 is supporting evidence only ($n = 15$); we report system means in the supplementary material and treat pairwise tests as exploratory.
+\sysname{}'s mean scores are 4.3/4.1/4.2/4.4/3.9 on the five scales, highest on Evidence Sufficiency.
+Mean inter-rater $\kappa = 0.68$ (0.62--0.74 across scales).
+RQ2 is supporting evidence only ($n = 15$): we make no pairwise superiority claim over B2--B5, and any Wilcoxon signed-rank comparison on per-case means is exploratory and uncorrected for multiplicity.
 
 \subsection{RQ3: Agentic Loop and Temporal Graph Ablations}
 \label{sec:rq3}
@@ -105,9 +105,10 @@ F1 is \plre{} F1; Stale is the stale-citation rate, i.e., citations to already-c
 \label{tab:ablation}
 \end{table}
 
-Negative-treatment error propagation was measured by substituting gold spans and by additional masking of extracted edges.
-The extractor row operates at the observed miss rate ($\approx$23\%, from 0.77 recall) and costs 2 \plre{} F1 points relative to gold-span substitution.
-Additional masking of extracted negative-treatment edges further degrades performance, confirming that the gate's benefit depends on treatment-edge quality (full numbers in the supplementary material).
+Negative-treatment error propagation was measured by substituting gold labels on the 600 annotated spans and by additionally masking extracted edges (Appendix~\ref{app:propagation}).
+The extractor operates at the observed miss rate ($\approx$23\%, from 0.77 recall) and costs 2 \plre{} F1 points relative to gold-span substitution (0.80, stale 3.7\%).
+Masking a further 30\% of extracted negative-treatment edges ($\approx$46\% effective miss rate) returns F1 to the no-gate level (0.72) with 11.3\% stale citations, so the gate's benefit depends on treatment-edge quality.
+Stale citations persist even with gold edges because a closed authority can enter context through precedent chaining (\S\ref{sec:rag}) rather than as gated support, and because annotator validity judgments can disagree with interval closure on boundary cases.
 
 \subsection{RQ4: Product--Litigation Risk Entailment}
 \label{sec:rq4}
@@ -115,7 +116,7 @@ Additional masking of extracted negative-treatment edges further degrades perfor
 \plre{} uses anonymized product-attribute cards (five archetypes) paired with docket-grounded theory cards across 312 product-mapping cases (1{,}856 pairs; 28.4\% positive; 19.7\% stale-authority distractors; $\kappa = 0.71$).
 Table~\ref{tab:plre}: VIGIL Full reaches 0.78 F1 ($+$0.06 vs.\ no-gate; $+$0.05--0.13 versus non-VIGIL product--theory and legal-NLI baselines).
 VIGIL without gating (0.72) sits slightly below RAG-only (0.73), indicating that the agentic loop without a validity filter can reinforce stale but lexically close precedent; the gate is the component that improves \plre{}.
-Gains partly reflect rejection of stale distractors (19.7\% of pairs); a non-distractor subset analysis is provided in the released evaluation scripts to address circularity concerns.
+Gains partly reflect rejection of stale distractors (19.7\% of pairs); this version reports F1 on the full held-out set only, not on the non-distractor subset (Limitations).
 Primary claims rest on the 372 held-out pairs.
 
 \begin{table}[t]
@@ -145,5 +146,8 @@ Held-out test pairs only.}
 \label{sec:rq5}
 
 Calibrating the evidence threshold to $\alpha \in \{0.05, 0.10, 0.20\}$ yields omission risk 0.043/0.082/0.171 in random splits.
-Under a temporal split (2023--24 $\to$ 2025) the achieved risk rises to 0.061/0.113/0.196, exceeding the target at $\alpha = 0.05$ and 0.10, which motivates rolling re-calibration.
-An open-weights Llama-3.1-70B~\citep{grattafiori2024llama3} + bge~\citep{xiao2024cpack} stack runs unchanged, with full-test-set macro F1 $0.81 \to 0.76$ and 2.4 vs.\ 2.6 iterations.
+Under a temporal split (2023--24 $\to$ 2025) the achieved risk rises to 0.061/0.113/0.196, exceeding the target at $\alpha = 0.05$ and 0.10, which motivates rolling re-calibration (Appendix~\ref{app:theory}).
+
+\paragraph{Backbone dependence.}
+Replacing GPT-4o with an open-weights Llama-3.1-70B~\citep{grattafiori2024llama3} + bge~\citep{xiao2024cpack} stack, unchanged otherwise, lowers full-test-set severity macro F1 from 0.81 to 0.76 (mean over five runs) with 2.6 vs.\ 2.4 mean iterations (Appendix~\ref{app:theory}).
+Baselines were not re-run on this stack, so this shows that \sysname{} runs without the proprietary model, not that its advantage is backbone-independent.
