@@ -6,6 +6,11 @@
 It is not legal advice: it does not replace counsel, predict litigation outcomes, or recommend business decisions, and severity labels are triage proxies that are not interpreted as liability.
 Every High- or Medium-risk item is presented for review by a qualified person, and unresolved legal-status atoms are surfaced as such rather than resolved automatically.
 
+\paragraph{Risks of misuse and over-reliance.}
+A risk register that looks authoritative invites over-reliance: a missed negative-treatment edge can let stale authority support a report, and a Low label can be read as clearance.
+Because the corpus is U.S.-federal and dominated by a few large defendants, labels may under-represent theories relevant to smaller vendors or other jurisdictions.
+We therefore surface provenance and unresolved legal-status atoms with every item and do not position severity labels as legal conclusions.
+
 \paragraph{Human oversight of failure modes.}
 Low-confidence negative-treatment edges enter a human review queue, since missed negative-treatment actions are the failure mode most likely to admit stale authority into a report.
 Reviewers can distinguish a genuine product--theory match from a retrieval gap or an unresolved legal-status ambiguity.
@@ -13,6 +18,8 @@ Reviewers can distinguish a genuine product--theory match from a retrieval gap o
 \paragraph{Data governance.}
 Released data are public docket metadata and machine-generated summaries derived from CourtListener/RECAP; we do not redistribute attorney-authored complaint text beyond what is already public, and the P2 citator study releases only the cross-walk, sampling seeds, and agreement statistics, with no redistributed proprietary citator content.
 The released dataset is distributed under a CC-BY-4.0 license for the machine-generated annotations and metadata; underlying docket text remains subject to the original CourtListener/RECAP terms of use.
+Released records contain the names of parties and counsel as they appear in these public filings; we collect no other personal information, and news items are represented only by links and derived metadata.
+The release is intended for research on legal-risk analysis, not for automated legal decisions.
 Protocol~P2 used a commercial citator under the authors' institutional research subscription.
 Because the precise product name is omitted for licensing reasons, exact reproduction of the P2 numbers requires an equivalent institutional subscription.
 We release the mapping rules so that any subscriber can re-run the agreement calculation.

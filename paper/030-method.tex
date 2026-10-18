@@ -37,7 +37,7 @@ Retrieval for a query at date $t_q$ first obtains semantically relevant candidat
 &\cdot w(\mathrm{treat}(v, t_q)).
 \end{aligned}
 \end{equation}
-Here $w(\cdot)$ is a fixed monotone schedule: positively treated or still-open authorities receive weight 1.0; cautionary authorities receive 0.75; material \textsc{Narrows} receives 0.50; fully closed (overruled or superseded) authorities are already excluded by the indicator.
+Here $w(\cdot)$ is a fixed monotone schedule: positively treated or still-open authorities receive weight 1.0; cautionary authorities (labeled \textsc{Distinguishes}, or bearing weak negative treatment without interval closure) receive 0.75; material \textsc{Narrows} receives 0.50; fully closed (overruled or superseded) authorities are already excluded by the indicator.
 The operator separates legal authority from topical similarity: a stale but lexically close case may still appear as context, yet it cannot support a risk decision without passing the validity check.
 Equation~\eqref{eq:gate} is therefore a constrained retrieval operator over $(q, t_q)$: a host retriever scores semantic relevance as usual, and \plre{} receives only support whose legal status remains operative at $t_q$.
 
