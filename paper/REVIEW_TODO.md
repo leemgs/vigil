@@ -173,3 +173,30 @@ API 키가 필요합니다. 저장소에 있는 `plre_test_shells_372.jsonl`은 
 - Qian et al. (2024), "TimeR$^4$: Time-aware Retrieval-Augmented LLMs for Temporal KGQA". EMNLP 2024, pp. 6942–6952. ACL Anthology 공식 BibTeX으로 확인했습니다.
 
 추가한 서술은 "이 방법들도 시간을 사실·문서·질의의 속성으로 다룬다"는 한 문장입니다. 본 논문이 내세우는 차별점(이후 판결이 이전 판례의 효력을 바꾸는 supersession)과 대비시키는 역할입니다. 인용은 50편에서 52편이 되었고, 본문은 여전히 8쪽 안에 들어갑니다.
+
+---
+
+## 9. 투고처 확정: ACL 2027 (ARR 경유) — 2026-10-19
+
+**공식 CFP에서 확인한 사항** (2027.aclweb.org/calls/main)
+- ARR 제출 마감은 **2027-01-04 23:59 AoE**입니다. ARR 2027 1월 사이클이 마지막 기회이고, commitment 마감은 아직 미정입니다.
+- 학회는 2027-08-17~22 일본 교토에서 열립니다(본 학회 8/20–22).
+- 분량은 long 8쪽이며, 채택 후 camera-ready에서 9쪽까지 늘릴 수 있습니다. Limitations 섹션은 필수이고 부록은 허용됩니다. 심사는 이중맹검입니다.
+- Responsible NLP Research Checklist, ACL 윤리·공개 정책, ACL AI writing assistance 정책이 적용됩니다.
+
+**이번에 반영한 것**
+- **제목 변경:** "VIGIL: Validity-Gated Retrieval for Product–Litigation Risk Entailment"에서 **"VIGIL: Validity-Interval Gating of Legal Precedent for Product–Litigation Risk Entailment"**로 바꿨습니다. 이유는 두 가지입니다.
+  - 본문의 약어 풀이(Validity-Interval Gating in Litigation)와 맞춥니다.
+  - 핵심 기제(validity interval)와 대상(legal precedent)을 제목에 드러냅니다.
+- **스타일 파일:** `acl.sty`와 `acl_natbib.bst`가 공식 저장소(acl-org/acl-style-files) 최신본과 바이트 단위로 같음을 확인했습니다.
+- **main.tex 머리 주석:** 투고처를 ACL 2027 (ARR)로 명시했습니다.
+
+**제출 절차상 TODO (원고 밖)**
+1. ARR 제출 폼에서 Responsible NLP Checklist를 작성합니다. 해당 섹션 번호를 기재하는데, 참고 위치는 Limitations, Ethics, §4.2(주석자), 부록 F(하이퍼파라미터·시드)입니다. 연산량(compute) 항목은 원고에 없으므로 §3 P2-12를 먼저 처리해야 합니다.
+2. AI 사용 공개는 Ethics "Use of AI assistants"에 이미 있습니다. ACL 정책에 맞는지 최종 확인합니다.
+3. ARR sustainable reviewing 정책(2026년 10월부터 적용)에 따라 저자 중 심사 의무를 질 사람을 지정합니다.
+4. commitment 시점에는 저자 목록을 바꿀 수 없으므로, 제출 전에 저자 목록을 확정합니다.
+5. 채택되면 발표자 등록이 필수입니다(조기 등록 마감까지 등록하지 않으면 채택이 취소될 수 있음).
+6. supplementary(코드·데이터 zip)는 익명화한 상태로 준비합니다. 개인 GitHub 링크와 저자명이 들어가면 안 됩니다.
+
+**일정 권장:** §3 P0 실험(bootstrap CI, non-distractor subset, 날짜 필터 baseline, Table 4 이상치 설명)을 **2026년 12월 중순까지** 끝내야 결과를 본문에 반영하고 다시 점검할 시간이 남습니다. camera-ready의 추가 1쪽은 채택 후에만 쓸 수 있으므로, 제출본은 8쪽 안에 P0 결과를 넣어야 합니다. 현재 8쪽 하단에 약 0.4쪽의 여유가 있습니다.
