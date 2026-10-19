@@ -10,7 +10,8 @@ These lines of work take legal text as the premise, treat the corpus as static, 
 
 \paragraph{Time-sensitive QA and temporal IR.}
 Time-sensitive QA conditions answers on the moment a question is asked~\citep{chen2021timeqa,zhang2021situatedqa,liska2022streamingqa,kasai2023realtimeqa}; temporal IR uses document time as a ranking signal~\citep{campos2014temporal,dhingra2022timeaware}.
-Both treat time as a property of facts or queries.
+Temporally aware RAG adds time to retrieval by scoring or reranking evidence against document or fact timestamps~\citep{gade2024tempralm,qian2024timer4}.
+All of these treat time as a property of facts, documents, or queries.
 In \plre{}, time enters through supersession: a later document alters the evidential status of an earlier one.
 Commercial citators such as Shepard's~\citep{shepards2024} and KeyCite~\citep{keycite2024} track negative treatment; citation-network analysis and edge labeling characterize the underlying graph~\citep{fowler2007network,sadeghian2018semantic}.
 \sysname{} attaches validity intervals to extracted treatment edges and applies them as a retrieval-time gate.

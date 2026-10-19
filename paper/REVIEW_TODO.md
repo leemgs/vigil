@@ -163,3 +163,13 @@ API 키가 필요합니다. 저장소에 있는 `plre_test_shells_372.jsonl`은 
 | Conclusion | 이득을 단정적으로 서술 | 점추정임을 밝히고, CI·non-distractor·날짜 필터 비교가 다음 단계라고 명시 |
 
 남은 TODO와 확인 항목은 §3, §4, §6과 같습니다.
+
+---
+
+## 8. 5차 점검 (2026-10-19): 관련 연구 보강
+
+원고 변경이 없어서, 이번에는 리뷰어가 "가장 가까운 선행 연구가 빠졌다"고 지적할 만한 부분을 봤습니다. Related Work의 시간 관련 문단에 시간 인식 RAG 방법이 없었습니다. 실존과 서지 정보를 확인한 2편을 추가했습니다.
+- Gade & Jetcheva (2024), "It's About Time: Incorporating Temporality in Retrieval Augmented Language Models" (TempRALM). arXiv 2401.13222에서 제목·저자·날짜를 확인했습니다.
+- Qian et al. (2024), "TimeR$^4$: Time-aware Retrieval-Augmented LLMs for Temporal KGQA". EMNLP 2024, pp. 6942–6952. ACL Anthology 공식 BibTeX으로 확인했습니다.
+
+추가한 서술은 "이 방법들도 시간을 사실·문서·질의의 속성으로 다룬다"는 한 문장입니다. 본 논문이 내세우는 차별점(이후 판결이 이전 판례의 효력을 바꾸는 supersession)과 대비시키는 역할입니다. 인용은 50편에서 52편이 되었고, 본문은 여전히 8쪽 안에 들어갑니다.

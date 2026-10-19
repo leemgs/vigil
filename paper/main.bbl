@@ -1,4 +1,4 @@
-\begin{thebibliography}{50}
+\begin{thebibliography}{52}
 \providecommand{\natexlab}[1]{#1}
 
 \bibitem[{Angelopoulos et~al.(2025)Angelopoulos, Bates, Cand{\`e}s, Jordan, and
@@ -108,6 +108,12 @@ James~H. Fowler, Timothy~R. Johnson, James~F. Spriggs, Sangick Jeon, and
 \newblock \href {https://www.courtlistener.com} {{CourtListener}: A free legal
   research tool}.
 \newblock Online platform and {REST API} v4.
+
+\bibitem[{Gade and Jetcheva(2024)}]{gade2024tempralm}
+Anoushka Gade and Jorjeta Jetcheva. 2024.
+\newblock \href {https://arxiv.org/abs/2401.13222} {It's about time:
+  Incorporating temporality in retrieval augmented language models}.
+\newblock \emph{Preprint}, arXiv:2401.13222.
 
 \bibitem[{Gao et~al.(2023)Gao, Xiong, Gao, Jia, Pan, Bi, Dai, Sun, Guo, Wang,
   and Wang}]{gao2023retrieval}
@@ -273,6 +279,17 @@ Joon~Sung Park, Joseph~C. O'Brien, Carrie~J. Cai, Meredith~Ringel Morris, Percy
   agents: Interactive simulacra of human behavior}.
 \newblock In \emph{Proceedings of the 36th Annual ACM Symposium on User
   Interface Software and Technology (UIST)}, pages 1--22. ACM.
+
+\bibitem[{Qian et~al.(2024)Qian, Zhang, Zhao, Zhou, Sui, Zhang, and
+  Song}]{qian2024timer4}
+Xinying Qian, Ying Zhang, Yu~Zhao, Baohang Zhou, Xuhui Sui, Li~Zhang, and Kehui
+  Song. 2024.
+\newblock \href {https://doi.org/10.18653/v1/2024.emnlp-main.394} {{TimeR}$^4$:
+  Time-aware retrieval-augmented large language models for temporal knowledge
+  graph question answering}.
+\newblock In \emph{Proceedings of the 2024 Conference on Empirical Methods in
+  Natural Language Processing}, pages 6942--6952. Association for Computational
+  Linguistics.
 
 \bibitem[{Rabelo et~al.(2022)Rabelo, Goebel, Kim, Kano, Yoshioka, and
   Satoh}]{rabelo2022coliee}
