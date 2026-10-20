@@ -3,7 +3,7 @@
 
 Let $\mathcal{D} = \{d_1, \ldots, d_n\}$ be public litigation documents with metadata and text, and let $P$ be a product specification describing architecture, data provenance, modality, and deployment context.
 \sysname{} returns a structured risk report $R^*$ and mitigation candidates $M^*$ that must satisfy an auditable goal predicate $\mathcal{G}$ (\S\ref{sec:goal}).
-Report quality is not optimized directly; we evaluate it by severity-label F1 (RQ1), blinded report ratings (RQ2), and the coverage loss $L_\tau$ (RQ5).
+Report quality is not optimized directly; we evaluate the evidence-coverage loss $L_\tau$ (\S\ref{sec:rq3}) and report severity-label agreement and blinded report ratings in Appendix~\ref{app:triage}.
 The core difficulty is a domain gap: product specifications employ engineering terms (data pipelines, API distribution), whereas litigation documents speak in causes of action, procedural posture, and precedent.
 \plre{} (\S\ref{sec:plre}) therefore requires mapping engineering-language attributes onto legal-risk theories while conditioning the support set on authority that remains valid at the query date.
 

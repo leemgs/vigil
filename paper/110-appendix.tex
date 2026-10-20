@@ -1,5 +1,56 @@
 \appendix
 
+\section{Severity Triage and Report Quality}
+\label{app:triage}
+
+These experiments evaluate the surrounding risk-analysis system rather than the validity gate, and their samples are small; we report them for completeness.
+
+\paragraph{Baselines.}
+B1 Additive-only Rule (the pre-labeler's scoring matrix without its composite bonus, thresholds tuned on validation); B2 Single-Pass LLM; B3 RAG-only; B4 Single-Agent (\sysname{} without the goal-conditioned loop); and B5 Iteration-Matched Self-Refinement (Reflexion-style~\citep{shinn2023reflexion}, matched on \sysname{}'s mean budget of 2.4 iterations, not on tokens).
+B2--B5 share the same GPT-4o backbone and decoding settings as \sysname{}.
+Severity-label F1 measures triage-label agreement over three labels (High/Medium/Low), not legal liability.
+
+\paragraph{Severity agreement.}
+Table~\ref{tab:severity} reports macro severity-label agreement on the human-adjudicated test cases ($n = 82$).
+\sysname{} reaches 0.79 macro F1 vs.\ 0.75 for iteration-matched B5; the same rank order holds on the full held-out test set, which includes retained pre-labels and is reported for scale only.
+With $n = 82$ we do not treat this four-point gap as established, and it is not significance-tested.
+
+\begin{table}[h]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{adjustbox}{max width=\columnwidth}
+\begin{tabular}{lcccc}
+\toprule
+System & \multicolumn{3}{c}{Human-adj.} & Full \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-5}
+ & F1 & P & R & F1 \\
+\midrule
+B1 Additive-only & 0.55 & 0.55 & 0.56 & 0.62 \\
+B2 Single-Pass LLM & 0.70 & 0.70 & 0.71 & 0.72 \\
+B3 RAG-only & 0.72 & 0.72 & 0.72 & 0.74 \\
+B4 Single-Agent & 0.74 & 0.74 & 0.74 & 0.76 \\
+B5 Self-Refinement & 0.75 & 0.75 & 0.75 & 0.77 \\
+VIGIL Full & \textbf{0.79} & \textbf{0.79} & \textbf{0.80} & \textbf{0.81} \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\caption{Macro severity-label agreement.
+Human-adjudicated test cases ($n = 82$).
+Full: held-out test including retained pre-labels.}
+\label{tab:severity}
+\end{table}
+
+\paragraph{Report quality.}
+Two blinded specialists rated \sysname{} and B2--B5 reports on 15 cases (75 reports) along Accuracy, Completeness, Actionability, Evidence Sufficiency, and Clarity (5-point scales).
+\sysname{}'s mean scores are 4.3/4.1/4.2/4.4/3.9 on the five scales, highest on Evidence Sufficiency.
+Mean inter-rater $\kappa = 0.68$ (0.62--0.74 across scales).
+With $n = 15$ we make no pairwise superiority claim over B2--B5; any Wilcoxon signed-rank comparison on per-case means is exploratory and uncorrected for multiplicity.
+
+\paragraph{Backbone dependence.}
+Replacing GPT-4o with an open-weights Llama-3.1-70B~\citep{grattafiori2024llama3} + bge~\citep{xiao2024cpack} stack, unchanged otherwise, lowers full-test-set severity macro F1 from 0.81 to 0.76 (mean over five runs) with 2.6 vs.\ 2.4 mean iterations (Table~\ref{tab:robustness}).
+Baselines were not re-run on this stack, so this shows that \sysname{} runs without the proprietary model, not that its advantage is backbone-independent.
+
 \section{Treatment-Edge Extraction}
 \label{app:edge}
 
@@ -231,7 +282,7 @@ Llama-3.1-70B stack & $0.76 \pm 0.02$ & $2.6 \pm 0.3$ \\
 Parameter & Value & Description \\
 \midrule
 $k$ & 3 & Min.\ documents per risk item \\
-$\tau$ & 0.62 & Default min.\ relevance (re-ranker score scaled to $[0, 1]$); recalibrated in RQ5 \\
+$\tau$ & 0.62 & Default min.\ relevance (re-ranker score scaled to $[0, 1]$); recalibrated in RQ3 \\
 $T_{\max}$ & 5 & Max.\ loop iterations \\
 Controller, Analyzer & GPT-4o & Temperature 0.2 \\
 Edge classifier & GPT-4o & Temperature 0 \\
@@ -253,7 +304,7 @@ The five seeds vary controller/Analyzer decoding (temperature 0.2) and few-shot 
 Run-level means are not per-instance uncertainty estimates.
 The Goal Checker is deterministic rule evaluation over $R_t$ (no LLM call).
 
-\paragraph{Report ratings (RQ2).}
+\paragraph{Report ratings.}
 Two specialists, blind to system identity, rated 75 reports (the same 15 cases under each of five systems, presented in random order with identifiers stripped).
 Inter-rater $\kappa$ is 0.68/0.71/0.65/0.74/0.62 on Accuracy, Completeness, Actionability, Evidence Sufficiency, and Clarity.
 
