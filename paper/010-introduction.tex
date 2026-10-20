@@ -21,6 +21,6 @@ Our contributions are:
 \begin{itemize}[leftmargin=*]
 \item a supersession-aware treatment layer that extracts treatment edges from public opinions, validates them against gold spans and a commercial citator, and propagates them into validity intervals that gate retrieval at query time (\S\ref{sec:temporal});
 \item \plre{}, an initial product-conditioned legal-risk entailment benchmark with non-VIGIL baselines and ablations that separate temporal validity from flat similarity (\S\ref{sec:plre}, \S\ref{sec:experiments});
-\item a goal-conditioned agentic loop with a coverage-based stopping rule; a conformal omission-risk bound holds under exchangeability and is reported as an auxiliary control (it is violated under temporal shift; \S\ref{sec:goal}, \S\ref{sec:experiments});
 \item VIGIL-Dataset with per-record provenance and a human-adjudicated subset (\S\ref{sec:dataset}), plus a public SCOTUS overruling testbed built from the transfer pilot (Appendix~\ref{app:p1}).
 \end{itemize}
+The goal-conditioned agentic loop that hosts the gate is a system component, not a separate contribution: without the gate it does not improve \plre{}, and its conformal omission-risk bound holds only under exchangeability and is violated under temporal shift (\S\ref{sec:goal}, \S\ref{sec:rq3}).

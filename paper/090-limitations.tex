@@ -13,7 +13,7 @@ The primary \plre{} gap (0.78 vs.\ 0.72 F1 on 372 pairs) and the severity gap (0
 Run-level mean$\pm$std over five seeds (Appendix~\ref{app:theory}) vary decoding and exemplar order only and are not a substitute for per-instance uncertainty.
 
 \paragraph{Baselines not evaluated on \plre.}
-B5 (iteration-matched self-refinement), token-matched refinement, pure document-date filters, and learned temporal re-rankers were not run on the \plre{} task.
+B5 (iteration-matched self-refinement), token-matched refinement, pure document-date filters, learned temporal re-rankers, and post-hoc citation filtering (applying the same intervals after generation and regenerating) were not run on the \plre{} task, so the benefit of gating before rather than after generation is not measured.
 A pure date filter cannot encode supersession by later opinions (the endpoint $e_v$ is not a property of document $v$), so it is not a substitute for treatment extraction; we leave a head-to-head comparison to follow-on work.
 B5 on severity labels is a triage control only.
 B1 uses additive scores only, whereas the retained pre-labels used the composite bonus, so B1 is not scored against its own labels; the full-test column of Table~\ref{tab:severity} nonetheless mixes in pre-labels and is reported for scale only.
@@ -44,4 +44,4 @@ Hosted snapshots can be retired, so bit-identical re-runs require that snapshot;
 Because many underlying opinions pre-date the knowledge cutoff of both models, we cannot rule out that either had seen parts of the corpus during pre-training; the open-weights run does not remove this confound.
 
 \paragraph{Future work.}
-Larger human adjudication, paired-bootstrap CIs on the main tables, non-distractor and dispute-blocked audits, B5/token-matched, date-filter and temporal re-ranker controls on \plre{}, leave-one-archetype-out evaluation, and broader jurisdictional coverage.
+Larger human adjudication, paired-bootstrap CIs on the main tables, non-distractor and dispute-blocked audits, B5/token-matched, date-filter, post-hoc-filter and temporal re-ranker controls on \plre{}, leave-one-archetype-out evaluation, and broader jurisdictional coverage.
