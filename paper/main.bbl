@@ -109,11 +109,12 @@ James~H. Fowler, Timothy~R. Johnson, James~F. Spriggs, Sangick Jeon, and
   research tool}.
 \newblock Online platform and {REST API} v4.
 
-\bibitem[{Gade and Jetcheva(2024)}]{gade2024tempralm}
-Anoushka Gade and Jorjeta Jetcheva. 2024.
-\newblock \href {https://arxiv.org/abs/2401.13222} {It's about time:
+\bibitem[{Gade et~al.(2025)Gade, Jetcheva, and Trivedi}]{gade2025tempralm}
+Anoushka Gade, Jorjeta~G. Jetcheva, and Hardi Trivedi. 2025.
+\newblock \href {https://doi.org/10.1109/CAI64502.2025.00019} {It's about time:
   Incorporating temporality in retrieval augmented language models}.
-\newblock \emph{Preprint}, arXiv:2401.13222.
+\newblock In \emph{2025 IEEE Conference on Artificial Intelligence (CAI)},
+  pages 75--82. IEEE.
 
 \bibitem[{Gao et~al.(2023)Gao, Xiong, Gao, Jia, Pan, Bi, Dai, Sun, Guo, Wang,
   and Wang}]{gao2023retrieval}
