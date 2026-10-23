@@ -192,7 +192,7 @@ API 키가 필요합니다. 저장소에 있는 `plre_test_shells_372.jsonl`은 
 - **main.tex 머리 주석:** 투고처를 ACL 2027 (ARR)로 명시했습니다.
 
 **제출 절차상 TODO (원고 밖)**
-1. ARR 제출 폼에서 Responsible NLP Checklist를 작성합니다. 해당 섹션 번호를 기재하는데, 참고 위치는 Limitations, Ethics, §4.2(주석자), 부록 F(하이퍼파라미터·시드)입니다. 연산량(compute) 항목은 원고에 없으므로 §3 P2-12를 먼저 처리해야 합니다.
+1. ARR 제출 폼에서 Responsible NLP Checklist를 작성합니다. 해당 섹션 번호를 기재하는데, 참고 위치는 Limitations, Ethics, §4.2(주석자), 부록 G(하이퍼파라미터·시드; 부록 A 신설 후 문자 변경)입니다. 연산량(compute) 항목은 원고에 없으므로 §3 P2-12를 먼저 처리해야 합니다.
 2. AI 사용 공개는 Ethics "Use of AI assistants"에 이미 있습니다. ACL 정책에 맞는지 최종 확인합니다.
 3. ARR sustainable reviewing 정책(2026년 10월부터 적용)에 따라 저자 중 심사 의무를 질 사람을 지정합니다.
 4. commitment 시점에는 저자 목록을 바꿀 수 없으므로, 제출 전에 저자 목록을 확정합니다.
@@ -253,7 +253,16 @@ API 키가 필요합니다. 저장소에 있는 `plre_test_shells_372.jsonl`은 
 
 ## 13. Responsible NLP 체크리스트 대응: 모델·연산·소프트웨어 (2026-10-23)
 
-ARR 체크리스트의 실험 항목(모델 크기, 연산 규모, 소프트웨어)에 답할 원고 내용이 없었습니다. 저자 이전 원고의 "Models, compute, and software" 문단을 부록 F에 복원했습니다.
+ARR 체크리스트의 실험 항목(모델 크기, 연산 규모, 소프트웨어)에 답할 원고 내용이 없었습니다. 저자 이전 원고의 "Models, compute, and software" 문단을 부록 G(하이퍼파라미터·모델)에 복원했습니다.
 - 담긴 내용: GPT-4o snapshot과 온도, 임베딩 모델, Llama-3.1-70B(70B 파라미터)와 bge-large, RECAP으로 미세조정한 LegalBERT, 사례당 평균 2.4회 반복(최대 5회), 5회 실행, 패키지 버전 고정.
 - 이전 원고의 "primary evaluation runs: June 2025"는 넣지 않았습니다. 데이터가 2025년 12월까지 포함된다는 현재 서술과 충돌하기 때문입니다(§4-7 확인 필요).
 - **여전히 빠진 것 (저자 확인 필요):** 총 연산량(API 호출 수 또는 토큰 수, Llama 실행의 GPU 종류와 시간). 체크리스트 C1에 기재해야 하며, 원고 어디에도 근거 수치가 없어 만들지 않았습니다.
+
+---
+
+## 14. ARR Responsible NLP Checklist 대응표 (2026-10-23)
+
+`paper/ARR_CHECKLIST.md`를 만들었습니다. 공식 질문 A1–E1마다 답(Yes/No), 근거 섹션, 제출 폼에 붙여 넣을 영문 사유 초안을 정리했습니다.
+- ARR은 근거나 사유를 체계적으로 빠뜨린 제출물을 desk reject합니다. 이 대응표가 그 위험을 막습니다.
+- 원고에 근거가 없는 5개 항목은 `[AUTHORS: …]`로 비워 두었습니다: C1 총 연산량, B2 CAP·CONAN 이용 조건, D5 주석자 특성, C4 패키지 버전, C3 신뢰구간.
+- **정정:** 부록 A 신설 후 하이퍼파라미터·모델 부록의 문자가 F에서 **G**로 바뀌었습니다. §9와 §13의 "부록 F" 표기를 바로잡았습니다.
