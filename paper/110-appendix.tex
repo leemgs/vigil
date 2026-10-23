@@ -304,6 +304,12 @@ The five seeds vary controller/Analyzer decoding (temperature 0.2) and few-shot 
 Run-level means are not per-instance uncertainty estimates.
 The Goal Checker is deterministic rule evaluation over $R_t$ (no LLM call).
 
+\paragraph{Models, compute, and software.}
+The controller and Analyzer use GPT-4o (\texttt{gpt-4o-2024-08-06}) at temperature 0.2 and the edge classifier the same snapshot at temperature 0; embeddings use \texttt{text-embedding-3-large} and, for deduplication only, Gemini \texttt{text-embedding-004}.
+The open-weights run uses Llama-3.1-70B (70B parameters) with \texttt{bge-large}, and the retriever comparison uses LegalBERT fine-tuned on RECAP text.
+Each case takes 2.4 loop iterations on average (at most $T_{\max} = 5$), and test-set evaluations use five runs.
+Exact package versions (BM25, re-ranker, conformal-calibration code) are pinned in the dependency file of the released code.
+
 \paragraph{Report ratings.}
 Two specialists, blind to system identity, rated 75 reports (the same 15 cases under each of five systems, presented in random order with identifiers stripped).
 Inter-rater $\kappa$ is 0.68/0.71/0.65/0.74/0.62 on Accuracy, Completeness, Actionability, Evidence Sufficiency, and Clarity.

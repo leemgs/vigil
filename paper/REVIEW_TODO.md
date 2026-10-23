@@ -248,3 +248,12 @@ API 키가 필요합니다. 저장소에 있는 `plre_test_shells_372.jsonl`은 
   - Crossref로 26편이 일치했습니다. 나머지는 원 출처(arXiv, ACL Anthology, NeurIPS·ICLR·PMLR·JMLR, 출판사, govinfo)로 확인한 결과를 유지합니다(§5–§8).
   - **수정:** `gade2024tempralm`은 arXiv 프리프린트로 적혀 있었지만, 실제로는 **2025 IEEE CAI, pp. 75–82에 출판**되었습니다(저자 3인: Gade, Jetcheva, Trivedi; DOI 10.1109/CAI64502.2025.00019). 출판본으로 바꾸고 키를 `gade2025tempralm`으로 변경했습니다.
   - Robertson & Zaragoza(2009)는 Crossref 기록만 페이지가 다르며, 출판사 기준 3(4):333–389가 맞습니다.
+
+---
+
+## 13. Responsible NLP 체크리스트 대응: 모델·연산·소프트웨어 (2026-10-23)
+
+ARR 체크리스트의 실험 항목(모델 크기, 연산 규모, 소프트웨어)에 답할 원고 내용이 없었습니다. 저자 이전 원고의 "Models, compute, and software" 문단을 부록 F에 복원했습니다.
+- 담긴 내용: GPT-4o snapshot과 온도, 임베딩 모델, Llama-3.1-70B(70B 파라미터)와 bge-large, RECAP으로 미세조정한 LegalBERT, 사례당 평균 2.4회 반복(최대 5회), 5회 실행, 패키지 버전 고정.
+- 이전 원고의 "primary evaluation runs: June 2025"는 넣지 않았습니다. 데이터가 2025년 12월까지 포함된다는 현재 서술과 충돌하기 때문입니다(§4-7 확인 필요).
+- **여전히 빠진 것 (저자 확인 필요):** 총 연산량(API 호출 수 또는 토큰 수, Llama 실행의 GPU 종류와 시간). 체크리스트 C1에 기재해야 하며, 원고 어디에도 근거 수치가 없어 만들지 않았습니다.
