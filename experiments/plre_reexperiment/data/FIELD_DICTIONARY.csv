@@ -1,0 +1,27 @@
+file,field,type,required,allowed_values,description
+plre_*.jsonl,pair_id,string,yes,unique id,Primary key for a product-attribute × risk-theory × date triple
+plre_*.jsonl,dispute_id,string,recommended,stable id,Groups related dockets; used for leakage / blocked splits
+plre_*.jsonl,split,string,no,train|val|test,Split membership
+plre_*.jsonl,gold,string,yes,YES|NO,Gold PLRE label
+plre_*.jsonl,product_attribute,string,yes,,Engineering description of the product feature
+plre_*.jsonl,risk_theory,string,yes,,Legal risk theory name/description
+plre_*.jsonl,query_date,string,yes,YYYY-MM-DD,Date at which validity is evaluated
+plre_*.jsonl,product_archetype,string,no,see paper,One of the five PLRE archetypes
+plre_*.jsonl,is_stale_distractor,boolean,yes,true|false,Whether pair is designed with closed-authority distractors
+plre_*.jsonl,year,int,no,,Year of query or filing for stratification
+plre_*.jsonl,passages,list,yes,,Retrieved contexts for this pair
+plre_*.jsonl,passages[].doc_id,string,yes,,Opinion / document id
+plre_*.jsonl,passages[].decision_date,string,yes,YYYY-MM-DD,Authority decision date
+plre_*.jsonl,passages[].text,string,yes,,Passage text (cite span or chunk)
+plre_*.jsonl,passages[].validity_status,string,yes,open|closed|narrowed|cautionary|unknown,From treatment graph (or regex for ablation)
+plre_*.jsonl,passages[].case_name,string,no,,Optional metadata
+plre_*.jsonl,passages[].court,string,no,,Optional metadata
+plre_*.jsonl,passages[].rank,int,no,,Retriever rank
+plre_*.jsonl,passages[].score,float,no,,Retriever score
+dispute_map.csv,docket_id,string,yes,,CourtListener / RECAP docket id
+dispute_map.csv,dispute_id,string,yes,,Canonical dispute key
+dispute_map.csv,case_name,string,no,,
+dispute_map.csv,filing_year,int,no,,
+triage_test.jsonl,case_id,string,yes,,Case primary key
+triage_test.jsonl,gold_severity,string,yes,High|Medium|Low,Human-adjudicated severity
+triage_test.jsonl,human_adjudicated,boolean,yes,true|false,If false label is retained pre-label only

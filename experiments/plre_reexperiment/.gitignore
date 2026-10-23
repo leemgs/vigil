@@ -1,0 +1,6 @@
+outputs/
+data/plre_*.jsonl
+!data/*.template.jsonl
+!data/plre_test.example.jsonl
+__pycache__/
+.pytest_cache/

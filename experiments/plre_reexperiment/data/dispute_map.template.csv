@@ -1,0 +1,6 @@
+docket_id,dispute_id,case_name,filing_year,notes
+1:23-cv-11195,d_nyt_openai,New York Times v. Microsoft et al.,2023,consolidated-related dockets share dispute_id
+1:23-cv-00135,d_getty,Getty Images v. Stability AI,2023,
+3:23-cv-03417,d_kadrey,Kadrey v. Meta,2023,
+cl_docket_9001,d_001,Example Plaintiff v. Example AI Co.,2023,example row for template
+cl_docket_9002,d_002,Licensee Inc. v. Vendor LLC,2024,example row for template
